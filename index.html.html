@@ -1,0 +1,2716 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BATIK SYMMETRY AGENT | Markas Nexus</title>
+    <!-- Memuatkan Tailwind CSS untuk reka bentuk responsif -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font ceria & futuristik: Fredoka (kartun comel) & Orbitron (teknologi) -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome untuk ikon tambahan -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tone.js untuk kesan bunyi ceria & futuristik -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+    <style>
+        /* Palet Warna Original Markas Nexus: Navy Blue, Ungu Gelap, Merah & Cyan Neon */
+        :root {
+            --nexus-navy: #0a1026;
+            --nexus-purple: #1b1138;
+            --nexus-cyan: #00f5d4;
+            --nexus-red: #ff3b6b;
+            --nexus-amber: #ffbe0b;
+            --nexus-panel: rgba(18, 22, 54, 0.88);
+        }
+
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background: radial-gradient(circle at top right, #261447 0%, #0d1533 48%, #070b1c 100%);
+            color: #f1f5f9;
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Latar Belakang Cyber Zone & Tekstur Corak Batik Halus */
+        .nexus-cyber-bg {
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(255, 59, 107, 0.14) 0%, transparent 35%),
+                radial-gradient(circle at 85% 75%, rgba(0, 245, 212, 0.14) 0%, transparent 40%),
+                linear-gradient(to right, rgba(0, 245, 212, 0.06) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(168, 85, 247, 0.06) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+        }
+
+        /* Corak Latar Kad Batik Tradisional-Futuristik */
+        .batik-card-pattern {
+            background-color: rgba(16, 20, 48, 0.92);
+            background-image: radial-gradient(rgba(255, 190, 11, 0.14) 2px, transparent 2px), radial-gradient(rgba(0, 245, 212, 0.12) 2px, rgba(16, 20, 48, 0.92) 2px);
+            background-size: 28px 28px;
+            background-position: 0 0, 14px 14px;
+        }
+
+        /* Panel Kaca Kartun Futuristik */
+        .nexus-panel {
+            background: var(--nexus-panel);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 2px solid rgba(0, 245, 212, 0.38);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 0 18px rgba(139, 92, 246, 0.18);
+        }
+
+        /* Animasi Karakter & Robot N.O.V.A. */
+        @keyframes chibiBounce {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-9px) rotate(1.5deg); }
+        }
+        .chibi-float {
+            animation: chibiBounce 3s ease-in-out infinite;
+        }
+
+        @keyframes novaHover {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-6px) scale(1.03); }
+        }
+        .nova-float {
+            animation: novaHover 2.4s ease-in-out infinite;
+        }
+
+        @keyframes radarSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .radar-sweep {
+            background: conic-gradient(from 0deg, rgba(0, 245, 212, 0.45) 0deg, transparent 75deg);
+            animation: radarSpin 5s linear infinite;
+        }
+
+        @keyframes scanBeam {
+            0% { top: 4%; opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { top: 96%; opacity: 0; }
+        }
+        .nova-scanner-line {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #00f5d4, #ffffff, #ff3b6b, transparent);
+            box-shadow: 0 0 14px #00f5d4;
+            animation: scanBeam 2s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 25;
+        }
+
+        /* Butang Permainan Kartun Berbucu Bulat */
+        .btn-nexus-primary {
+            background: linear-gradient(135deg, #ff3b6b 0%, #ff758f 100%);
+            border: 2px solid #ffb3c6;
+            box-shadow: 0 5px 0 #9e193b, 0 8px 20px rgba(255, 59, 107, 0.4);
+            transition: all 0.15s ease;
+        }
+        .btn-nexus-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            filter: brightness(1.08);
+        }
+        .btn-nexus-primary:active:not(:disabled) {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #9e193b;
+        }
+
+        .btn-nexus-cyan {
+            background: linear-gradient(135deg, #00bbf9 0%, #00f5d4 100%);
+            color: #071329;
+            border: 2px solid #ffffff;
+            box-shadow: 0 5px 0 #007799, 0 8px 20px rgba(0, 245, 212, 0.35);
+            transition: all 0.15s ease;
+        }
+        .btn-nexus-cyan:hover:not(:disabled) {
+            transform: translateY(-2px);
+            filter: brightness(1.06);
+        }
+        .btn-nexus-cyan:active:not(:disabled) {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #007799;
+        }
+
+        .batik-frame-glow {
+            border: 3px solid #ffbe0b;
+            box-shadow: 0 0 22px rgba(255, 190, 11, 0.3), inset 0 0 20px rgba(0, 245, 212, 0.2);
+        }
+
+        @keyframes portalPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(0, 245, 212, 0.5), inset 0 0 20px rgba(255, 59, 107, 0.4); }
+            50% { transform: scale(1.04); box-shadow: 0 0 45px rgba(0, 245, 212, 0.85), inset 0 0 35px rgba(255, 190, 11, 0.6); }
+        }
+        .portal-gate-anim {
+            animation: portalPulse 2.2s ease-in-out infinite;
+        }
+
+        @keyframes rankPop {
+            0% { transform: scale(0.6) rotate(-6deg); opacity: 0; }
+            70% { transform: scale(1.08) rotate(2deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        .rank-up-anim {
+            animation: rankPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @media print {
+            body * { visibility: hidden; }
+            #certificate-printable, #certificate-printable * { visibility: visible; }
+            #certificate-printable {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: #0f172a !important;
+                color: #ffffff !important;
+                border: 4px solid #ffbe0b !important;
+            }
+        }
+    </style>
+</head>
+<body class="nexus-cyber-bg min-h-screen flex flex-col">
+
+    <!-- BAR STATUS UTAMA MARKAS NEXUS (HUD ATAS) -->
+    <header id="main-hud-header" class="hidden sticky top-0 z-40 nexus-panel border-b-2 border-cyan-400/40 px-3 py-2.5 sm:px-6">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('home')">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-600 via-indigo-700 to-cyan-500 flex items-center justify-center border-2 border-cyan-300 shadow-lg relative overflow-hidden">
+                    <div class="radar-sweep absolute inset-0"></div>
+                    <svg viewBox="0 0 40 40" class="w-7 h-7 relative z-10">
+                        <polygon points="20,3 25,15 37,20 25,25 20,37 15,25 3,20 15,15" fill="#ffbe0b" stroke="#ffffff" stroke-width="2"/>
+                        <circle cx="20" cy="20" r="5" fill="#ff3b6b"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[10px] sm:text-xs font-orbitron font-bold tracking-widest text-cyan-300 bg-purple-950/90 px-2.5 py-0.5 rounded-full border border-cyan-400/50">MARKAS NEXUS</span>
+                        <span id="hud-rank-pill" class="text-[10px] font-orbitron font-bold text-amber-300 bg-amber-950/90 px-2.5 py-0.5 rounded-full border border-amber-400/50">EJEN ROOKIE</span>
+                    </div>
+                    <h1 class="font-orbitron font-black text-sm sm:text-lg md:text-xl tracking-wide text-white drop-shadow">
+                        BATIK SYMMETRY <span class="text-cyan-300">AGENT</span>
+                    </h1>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-3">
+                <div onclick="navigateTo('profile')" title="Buka Profil Ejen" class="flex items-center gap-2 bg-indigo-950/90 hover:bg-purple-900/90 border-2 border-cyan-400/60 rounded-2xl px-2.5 py-1 cursor-pointer transition shadow-md">
+                    <div id="hud-agent-avatar" class="w-9 h-9 rounded-xl bg-slate-900 border border-cyan-300 overflow-hidden flex items-center justify-center"></div>
+                    <div class="hidden sm:block text-left">
+                        <p id="hud-codename" class="text-[10px] text-amber-300 font-orbitron leading-none">EJEN PELATIH</p>
+                        <p id="hud-agent-name" class="text-xs font-bold text-white leading-tight">EJEN ARIF</p>
+                    </div>
+                    <span id="hud-agent-role" class="hidden md:inline-block text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500 text-white">PENEROKA</span>
+                </div>
+
+                <div class="hidden md:flex items-center gap-1.5 bg-indigo-950/90 border-2 border-purple-400/50 rounded-2xl px-3 py-1.5" title="Masa Operasi">
+                    <i class="fa-solid fa-stopwatch text-cyan-300 text-sm"></i>
+                    <span id="hud-timer" class="font-orbitron font-bold text-xs text-white">00:00</span>
+                </div>
+
+                <div class="flex items-center gap-1 bg-indigo-950/90 border-2 border-rose-400/60 rounded-2xl px-3 py-1.5" title="Tenaga Ejen">
+                    <div id="hud-lives" class="flex items-center gap-1 text-rose-500 text-sm sm:text-base"></div>
+                </div>
+
+                <div class="flex items-center gap-1.5 bg-indigo-950/90 border-2 border-amber-400/60 rounded-2xl px-3 py-1.5">
+                    <i class="fa-solid fa-star text-amber-400 text-sm sm:text-base animate-pulse"></i>
+                    <div>
+                        <p class="text-[9px] text-amber-300 font-orbitron leading-none hidden sm:block">MARKAH</p>
+                        <p id="hud-score" class="font-orbitron font-bold text-xs sm:text-sm text-white leading-tight">0</p>
+                    </div>
+                </div>
+
+                <button onclick="navigateTo('knowledge')" class="p-2.5 rounded-2xl bg-indigo-950/90 hover:bg-amber-400 hover:text-slate-950 border-2 border-amber-400/60 text-amber-300 transition cursor-pointer" title="Pusat Ilmu">
+                    <i class="fa-solid fa-book-open"></i>
+                </button>
+
+                <button onclick="navigateTo('home')" class="p-2.5 rounded-2xl bg-purple-900/90 hover:bg-cyan-500 hover:text-slate-950 border-2 border-cyan-400/50 text-cyan-300 transition cursor-pointer" title="Menu Utama">
+                    <i class="fa-solid fa-house"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- KANDUNGAN UTAMA (PAPARAN DINAMIK) -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-3 py-4 sm:px-6 sm:py-6 flex flex-col justify-center">
+
+        <!-- ALIRAN PERMULAAN PERMAINAN (3 BABAK CERITA) -->
+        <section id="view-intro" class="space-y-6">
+            <div class="max-w-3xl mx-auto flex items-center justify-between gap-2 bg-indigo-950/90 border-2 border-cyan-400/40 rounded-full px-4 py-2">
+                <div class="flex items-center gap-2">
+                    <span id="story-dot-1" class="w-3 h-3 rounded-full bg-cyan-400 shadow-[0_0_8px_#00f5d4]"></span>
+                    <span id="story-label-1" class="text-xs font-orbitron font-bold text-cyan-300">BABAK 1: PENDAFTARAN</span>
+                </div>
+                <div class="h-0.5 flex-1 bg-indigo-800"></div>
+                <div class="flex items-center gap-2">
+                    <span id="story-dot-2" class="w-3 h-3 rounded-full bg-slate-600"></span>
+                    <span id="story-label-2" class="text-xs font-orbitron text-slate-400 hidden sm:inline">BABAK 2: KE MARKAS</span>
+                </div>
+                <div class="h-0.5 flex-1 bg-indigo-800"></div>
+                <div class="flex items-center gap-2">
+                    <span id="story-dot-3" class="w-3 h-3 rounded-full bg-slate-600"></span>
+                    <span id="story-label-3" class="text-xs font-orbitron text-slate-400 hidden sm:inline">BABAK 3: TAKLIMAT</span>
+                </div>
+                <button onclick="skipIntroToHub()" class="ml-2 text-[11px] font-orbitron text-amber-300 hover:text-white underline cursor-pointer">
+                    Langkau &raquo;
+                </button>
+            </div>
+
+            <!-- BABAK 1 -->
+            <div id="story-act-1" class="nexus-panel batik-card-pattern rounded-[2rem] p-5 sm:p-8 max-w-4xl mx-auto relative overflow-hidden">
+                <div class="nova-scanner-line"></div>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center relative z-10">
+                    <div class="md:col-span-5 flex flex-col items-center">
+                        <div class="w-56 h-56 sm:w-64 sm:h-64 rounded-[2rem] bg-gradient-to-b from-rose-500/25 via-indigo-900/60 to-slate-950 border-2 border-cyan-400/70 p-3 flex items-center justify-center shadow-2xl relative">
+                            <div id="intro-arif-avatar" class="w-48 h-48 sm:w-56 sm:h-56 chibi-float"></div>
+                            <span class="absolute bottom-3 bg-rose-500 text-white font-orbitron text-xs font-bold px-3 py-1 rounded-full border border-white">EJEN ARIF</span>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-7 space-y-4 text-center md:text-left">
+                        <span class="inline-block font-orbitron text-xs font-bold text-cyan-300 bg-purple-950 px-3.5 py-1 rounded-full border border-cyan-400/50">
+                            BABAK 01 • PENDAFTARAN EJEN BAHARU
+                        </span>
+                        <h2 class="font-orbitron text-2xl sm:text-3xl font-black text-white leading-tight">
+                            BATIK SYMMETRY <span class="text-cyan-300">AGENT</span>
+                        </h2>
+
+                        <div class="bg-indigo-950/90 border-l-4 border-cyan-400 rounded-2xl p-4 text-left shadow-md">
+                            <p class="text-xs font-orbitron text-cyan-300 mb-1">UCAPAN EJEN ARIF:</p>
+                            <p class="text-sm sm:text-base text-white leading-relaxed">
+                                "Selamat datang ke organisasi <strong class="text-amber-300">NEXUS</strong>! Anda kini merupakan ejen pelatih baharu. Sebelum kita bertolak ke markas rahsia, daftarkan nama kod ejen anda dahulu!"
+                            </p>
+                        </div>
+
+                        <div class="space-y-2 text-left">
+                            <label for="input-agent-codename" class="block font-orbitron text-xs font-bold text-amber-300">
+                                <i class="fa-solid fa-id-badge mr-1"></i> MASUKKAN NAMA KOD EJEN ANDA:
+                            </label>
+                            <input id="input-agent-codename" type="text" maxlength="18" placeholder="Contoh: Ejen Harimau / Adam / Sara" class="w-full px-4 py-3 rounded-2xl bg-slate-950/90 border-2 border-cyan-400/70 focus:border-amber-400 focus:outline-none text-white font-bold text-sm sm:text-base placeholder-slate-500">
+                            <div class="flex flex-wrap gap-1.5 pt-1">
+                                <span class="text-[11px] text-slate-300 mr-1">Cadangan pantas:</span>
+                                <button type="button" onclick="setQuickCodename('Ejen Kilat')" class="text-[11px] px-2.5 py-0.5 rounded-full bg-indigo-900 hover:bg-cyan-500 hover:text-slate-950 text-cyan-200 border border-cyan-400/40 cursor-pointer">Ejen Kilat</button>
+                                <button type="button" onclick="setQuickCodename('Ejen Bintang')" class="text-[11px] px-2.5 py-0.5 rounded-full bg-indigo-900 hover:bg-cyan-500 hover:text-slate-950 text-cyan-200 border border-cyan-400/40 cursor-pointer">Ejen Bintang</button>
+                                <button type="button" onclick="setQuickCodename('Ejen Putra')" class="text-[11px] px-2.5 py-0.5 rounded-full bg-indigo-900 hover:bg-cyan-500 hover:text-slate-950 text-cyan-200 border border-cyan-400/40 cursor-pointer">Ejen Putra</button>
+                            </div>
+                        </div>
+
+                        <div class="pt-2">
+                            <button onclick="goToStoryAct(2)" class="btn-nexus-primary w-full sm:w-auto px-7 py-3.5 rounded-2xl font-orbitron font-bold text-white text-sm sm:text-base flex items-center justify-center gap-2 cursor-pointer">
+                                SAHKAN PENDAFTARAN & BERTOLAK <i class="fa-solid fa-rocket"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BABAK 2 -->
+            <div id="story-act-2" class="hidden nexus-panel batik-card-pattern rounded-[2rem] p-5 sm:p-8 max-w-4xl mx-auto text-center space-y-6 relative overflow-hidden">
+                <div class="nova-scanner-line"></div>
+                <span class="inline-block font-orbitron text-xs font-bold text-amber-300 bg-purple-950 px-4 py-1 rounded-full border border-amber-400/50">
+                    BABAK 02 • MEMASUKI PINTU GERBANG MARKAS NEXUS
+                </span>
+
+                <div class="portal-gate-anim max-w-2xl mx-auto rounded-3xl bg-gradient-to-b from-indigo-950 via-purple-950/90 to-slate-950 border-2 border-cyan-400 p-5 relative">
+                    <div class="flex items-center justify-between text-[10px] font-orbitron text-cyan-300 mb-3">
+                        <span><i class="fa-solid fa-satellite-dish mr-1"></i> ZON RAHSIA: CYBER GATEWAY</span>
+                        <span class="text-emerald-400">● AKSES DILULUSKAN</span>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-3 items-end my-2">
+                        <div class="flex flex-col items-center">
+                            <div id="act2-arif" class="w-24 h-24 sm:w-32 sm:h-32 chibi-float"></div>
+                            <span class="text-[11px] font-orbitron font-bold text-rose-300 mt-1">EJEN ARIF</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div id="act2-aira" class="w-24 h-24 sm:w-32 sm:h-32 chibi-float" style="animation-delay: 0.4s;"></div>
+                            <span class="text-[11px] font-orbitron font-bold text-cyan-300 mt-1">EJEN AIRA</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div id="act2-baraq" class="w-24 h-24 sm:w-32 sm:h-32 chibi-float" style="animation-delay: 0.8s;"></div>
+                            <span class="text-[11px] font-orbitron font-bold text-amber-300 mt-1">EJEN BARAQ</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 bg-slate-950/90 border border-cyan-400/40 rounded-2xl p-3.5 text-left">
+                        <p class="text-xs font-orbitron text-amber-300 mb-1">SAMBUTAN SKUAD NEXUS:</p>
+                        <p id="act2-welcome-text" class="text-xs sm:text-sm text-slate-100 leading-relaxed"></p>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-3">
+                    <button onclick="goToStoryAct(1)" class="px-5 py-3 rounded-2xl font-orbitron text-xs font-bold bg-indigo-950 text-slate-300 border border-indigo-600 cursor-pointer">
+                        &laquo; KEMBALI
+                    </button>
+                    <button onclick="goToStoryAct(3)" class="btn-nexus-cyan px-7 py-3 rounded-2xl font-orbitron font-bold text-sm flex items-center gap-2 cursor-pointer">
+                        TERUSKAN KE TAKLIMAT MISI <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- BABAK 3 -->
+            <div id="story-act-3" class="hidden nexus-panel batik-card-pattern rounded-[2rem] p-5 sm:p-8 max-w-4xl mx-auto space-y-6 relative overflow-hidden">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-4 flex flex-col items-center">
+                        <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-cyan-500/15 border-2 border-cyan-400 p-4 flex items-center justify-center shadow-[0_0_30px_rgba(0,245,212,0.35)]">
+                            <div id="act3-nova-avatar" class="w-40 h-40 nova-float"></div>
+                        </div>
+                        <span class="mt-3 font-orbitron text-xs font-bold text-cyan-300 bg-indigo-950 px-3.5 py-1 rounded-full border border-cyan-400/50">
+                            PEMBANTU DIGITAL N.O.V.A.
+                        </span>
+                    </div>
+
+                    <div class="md:col-span-8 space-y-4">
+                        <span class="inline-block font-orbitron text-xs font-bold text-rose-300 bg-rose-950/80 px-3.5 py-1 rounded-full border border-rose-400/50">
+                            BABAK 03 • TAKLIMAT OPERASI & PANDUAN EJEN
+                        </span>
+                        <h3 class="font-orbitron text-xl sm:text-2xl font-black text-white">
+                            "HAI! SAYA <span class="text-cyan-300">N.O.V.A.</span>, PEMBANTU PINTAR ANDA!"
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                            Tugas utama anda adalah memulihkan <strong class="text-amber-300">3 Misi Matematik (9 Tahap)</strong> berkaitan konsep <strong class="text-cyan-300">Simetri, Paksi Simetri, Pantulan, dan Corak Batik</strong>.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
+                            <div class="bg-indigo-950/90 border border-amber-400/50 rounded-2xl p-3">
+                                <p class="font-orbitron text-xs font-bold text-amber-300 mb-1"><i class="fa-solid fa-star mr-1"></i> MARKAH</p>
+                                <p class="text-xs text-slate-200">Kumpul markah naik pangkat dari <strong>Rookie</strong> ke <strong>Master</strong>!</p>
+                            </div>
+                            <div class="bg-indigo-950/90 border border-rose-400/50 rounded-2xl p-3">
+                                <p class="font-orbitron text-xs font-bold text-rose-300 mb-1"><i class="fa-solid fa-heart mr-1"></i> 3 TENAGA</p>
+                                <p class="text-xs text-slate-200">Setiap kesilapan menolak 1 tenaga hati. Rujuk <strong>Pusat Ilmu</strong>!</p>
+                            </div>
+                            <div class="bg-indigo-950/90 border border-cyan-400/50 rounded-2xl p-3">
+                                <p class="font-orbitron text-xs font-bold text-cyan-300 mb-1"><i class="fa-solid fa-robot mr-1"></i> N.O.V.A. AI</p>
+                                <p class="text-xs text-slate-200">Klik ikon <strong>N.O.V.A.</strong> bila-bila masa untuk bertanya soalan!</p>
+                            </div>
+                        </div>
+
+                        <div class="pt-2">
+                            <button onclick="completeIntroToHub()" class="btn-nexus-primary w-full sm:w-auto px-8 py-3.5 rounded-2xl font-orbitron font-bold text-white text-sm sm:text-base flex items-center justify-center gap-2 cursor-pointer">
+                                MASUK KE MENU UTAMA MARKAS NEXUS <i class="fa-solid fa-door-open"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MENU UTAMA MARKAS NEXUS -->
+        <section id="view-home" class="hidden space-y-6">
+            <div class="nexus-panel batik-card-pattern rounded-[2rem] p-5 sm:p-7 relative overflow-hidden">
+                <div class="nova-scanner-line"></div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center relative z-10">
+                    <div class="lg:col-span-4 flex flex-col items-center">
+                        <div class="relative w-56 h-56 sm:w-64 sm:h-64 rounded-[2rem] bg-gradient-to-b from-purple-600/30 via-indigo-900/60 to-slate-950 border-2 border-cyan-400/70 p-3 flex items-center justify-center shadow-2xl">
+                            <div id="home-hero-character" class="w-48 h-48 sm:w-56 sm:h-56 chibi-float"></div>
+                            <div onclick="toggleNovaChat(true)" class="absolute -top-3 -right-3 w-20 h-20 nova-float cursor-pointer drop-shadow-[0_0_12px_rgba(0,245,212,0.8)]" title="Klik untuk sembang dengan N.O.V.A.">
+                                <div id="home-nova-mini"></div>
+                            </div>
+                            <div class="absolute bottom-2.5 left-3 right-3 bg-indigo-950/95 border border-cyan-400/70 rounded-xl px-3 py-1 flex items-center justify-between">
+                                <span id="home-codename-badge" class="font-orbitron text-[11px] font-bold text-amber-300">EJEN PELATIH</span>
+                                <span id="home-rank-badge" class="text-[10px] font-orbitron font-bold bg-cyan-500 text-slate-950 px-2 py-0.5 rounded-full">ROOKIE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-8 space-y-4">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <span class="inline-flex items-center gap-2 bg-purple-950/90 border border-cyan-400/60 rounded-full px-3.5 py-1 text-xs font-orbitron text-cyan-300">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> PUSAT OPERASI MARKAS NEXUS
+                            </span>
+                            <button onclick="replayStoryIntro()" class="text-xs font-orbitron text-slate-300 hover:text-amber-300 underline cursor-pointer">
+                                <i class="fa-solid fa-film mr-1"></i> Ulang Jalan Cerita
+                            </button>
+                        </div>
+
+                        <h2 id="home-welcome-heading" class="font-orbitron text-xl sm:text-3xl font-black text-white">
+                            SELAMAT BERTUGAS, <span class="text-cyan-300">EJEN PELATIH!</span>
+                        </h2>
+
+                        <div class="bg-indigo-950/90 border-2 border-amber-400/50 rounded-2xl p-3.5 space-y-2">
+                            <div class="flex items-center justify-between text-xs font-orbitron">
+                                <span class="text-amber-300 font-bold"><i class="fa-solid fa-medal mr-1"></i> PANGKAT: <span id="home-rank-title" class="text-white">EJEN ROOKIE</span></span>
+                                <span id="home-rank-next-text" class="text-cyan-300">250 markah ke Ejen Operatif</span>
+                            </div>
+                            <div class="w-full h-3.5 bg-slate-950 rounded-full overflow-hidden border border-indigo-700 p-0.5">
+                                <div id="home-rank-progress-bar" class="h-full rounded-full bg-gradient-to-r from-cyan-400 via-amber-400 to-rose-500 transition-all duration-500" style="width: 10%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-3">
+                            <div class="bg-indigo-950/85 border border-cyan-400/40 rounded-2xl p-2.5 text-center">
+                                <p class="text-[11px] text-cyan-300 font-bold">TAHAP SELESAI</p>
+                                <p id="home-completed-count" class="text-lg sm:text-2xl font-orbitron font-black text-white">0 / 9</p>
+                            </div>
+                            <div class="bg-indigo-950/85 border border-amber-400/40 rounded-2xl p-2.5 text-center">
+                                <p class="text-[11px] text-amber-300 font-bold">JUMLAH MARKAH</p>
+                                <p id="home-score-display" class="text-lg sm:text-2xl font-orbitron font-black text-amber-300">0</p>
+                            </div>
+                            <div class="bg-indigo-950/85 border border-rose-400/40 rounded-2xl p-2.5 text-center">
+                                <p class="text-[11px] text-rose-300 font-bold">LENCANA</p>
+                                <p id="home-badges-count" class="text-lg sm:text-2xl font-orbitron font-black text-rose-400">1 / 6</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-orbitron text-sm sm:text-base font-bold text-cyan-300 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-grid-2"></i> DIREKTORI SISTEM MARKAS NEXUS (6 MODUL UTAMA)
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <button onclick="navigateTo('profile')" class="nexus-panel batik-card-pattern hover:border-rose-400 rounded-3xl p-5 text-left transition-all hover:-translate-y-1 flex items-start gap-4 cursor-pointer group shadow-lg">
+                        <div class="w-14 h-14 rounded-2xl bg-rose-500/20 border-2 border-rose-400 flex items-center justify-center text-rose-300 text-2xl shrink-0 group-hover:scale-110 transition">
+                            <i class="fa-solid fa-user-astronaut"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-orbitron text-rose-300">MODUL 01</span>
+                            <h4 class="font-orbitron text-base sm:text-lg font-black text-white">1. PROFIL EJEN</h4>
+                            <p class="text-xs text-slate-300 mt-1">Tukar watak, semak pangkat & bar kemajuan.</p>
+                        </div>
+                    </button>
+
+                    <button onclick="navigateTo('knowledge')" class="nexus-panel batik-card-pattern hover:border-amber-400 rounded-3xl p-5 text-left transition-all hover:-translate-y-1 flex items-start gap-4 cursor-pointer group shadow-lg">
+                        <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border-2 border-amber-400 flex items-center justify-center text-amber-300 text-2xl shrink-0 group-hover:scale-110 transition">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-orbitron text-amber-300">MODUL 02</span>
+                            <h4 class="font-orbitron text-base sm:text-lg font-black text-white">2. PUSAT ILMU</h4>
+                            <p class="text-xs text-slate-300 mt-1">Nota bergambar Simetri, Galeri Batik & Pantulan.</p>
+                        </div>
+                    </button>
+
+                    <button onclick="toggleNovaChat(true)" class="nexus-panel batik-card-pattern hover:border-cyan-300 rounded-3xl p-5 text-left transition-all hover:-translate-y-1 flex items-start gap-4 cursor-pointer group shadow-lg">
+                        <div class="w-14 h-14 rounded-2xl bg-cyan-500/20 border-2 border-cyan-400 flex items-center justify-center text-cyan-300 text-2xl shrink-0 group-hover:scale-110 transition">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-orbitron text-cyan-300">MODUL 03</span>
+                            <h4 class="font-orbitron text-base sm:text-lg font-black text-white">3. N.O.V.A. AI</h4>
+                            <p class="text-xs text-slate-300 mt-1">Sembang soal jawab interaktif bersama robot pintar.</p>
+                        </div>
+                    </button>
+
+                    <button onclick="navigateTo('missions')" class="nexus-panel batik-card-pattern hover:border-emerald-400 rounded-3xl p-5 text-left transition-all hover:-translate-y-1 flex items-start gap-4 cursor-pointer group shadow-lg ring-2 ring-cyan-400/40">
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-emerald-300 text-2xl shrink-0 group-hover:scale-110 transition">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-orbitron text-emerald-300">MODUL 04 • UTAMA</span>
+                            <h4 class="font-orbitron text-base sm:text-lg font-black text-white">4. PETA MISI</h4>
+                            <p class="text-xs text-slate-300 mt-1">Mulakan 3 Misi Matematik & 9 Tahap.</p>
+                        </div>
+                    </button>
+
+                    <button onclick="navigateTo('badges')" class="nexus-panel batik-card-pattern hover:border-purple-400 rounded-3xl p-5 text-left transition-all hover:-translate-y-1 flex items-start gap-4 cursor-pointer group shadow-lg">
+                        <div class="w-14 h-14 rounded-2xl bg-purple-500/20 border-2 border-purple-400 flex items-center justify-center text-purple-300 text-2xl shrink-0 group-hover:scale-110 transition">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-orbitron text-purple-300">MODUL 05</span>
+                            <h4 class="font-orbitron text-base sm:text-lg font-black text-white">5. KOLEKSI LENCANA</h4>
+                            <p class="text-xs text-slate-300 mt-1">Lihat semua lencana kejayaan.</p>
+                        </div>
+                    </button>
+
+                    <button onclick="navigateTo('report')" class="nexus-panel batik-card-pattern hover:border-amber-300 rounded-3xl p-5 text-left transition-all hover:-translate-y-1 flex items-start gap-4 cursor-pointer group shadow-lg">
+                        <div class="w-14 h-14 rounded-2xl bg-sky-500/20 border-2 border-sky-400 flex items-center justify-center text-sky-300 text-2xl shrink-0 group-hover:scale-110 transition">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-orbitron text-sky-300">MODUL 06</span>
+                            <h4 class="font-orbitron text-base sm:text-lg font-black text-white">6. LAPORAN & SIJIL</h4>
+                            <p class="text-xs text-slate-300 mt-1">Rekod jawapan & Sijil Ejen NEXUS.</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROFIL EJEN & PEMILIHAN WATAK -->
+        <section id="view-profile" class="hidden space-y-6">
+            <div class="nexus-panel batik-card-pattern rounded-[2rem] p-5 sm:p-8 space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-cyan-400/30 pb-4">
+                    <div>
+                        <span class="text-xs font-orbitron text-cyan-300 tracking-widest">REKOD PERIBADI & SKUAD NEXUS</span>
+                        <h2 class="font-orbitron text-xl sm:text-3xl font-black text-white">PROFIL EJEN & PEMILIHAN WATAK</h2>
+                    </div>
+                    <button onclick="navigateTo('home')" class="px-4 py-2.5 rounded-2xl bg-indigo-950 hover:bg-purple-900 border-2 border-cyan-400/50 text-xs font-orbitron text-cyan-300 cursor-pointer">
+                        <i class="fa-solid fa-house mr-1"></i> KEMBALI KE MARKAS
+                    </button>
+                </div>
+
+                <div class="bg-indigo-950/90 border-2 border-cyan-400/60 rounded-3xl p-5 grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                    <div class="md:col-span-3 flex flex-col items-center">
+                        <div id="profile-active-avatar" class="w-32 h-32 rounded-3xl bg-slate-950 border-2 border-amber-400 p-2"></div>
+                        <span id="profile-rank-badge" class="mt-2 font-orbitron text-xs font-bold px-3 py-1 rounded-full bg-amber-400 text-slate-950">EJEN ROOKIE</span>
+                    </div>
+                    <div class="md:col-span-9 space-y-3">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <div>
+                                <p class="text-[11px] font-orbitron text-cyan-300">NAMA KOD EJEN</p>
+                                <div class="flex items-center gap-2">
+                                    <h3 id="profile-codename-display" class="font-orbitron text-xl sm:text-2xl font-black text-white">EJEN PELATIH</h3>
+                                    <button onclick="promptEditCodename()" class="text-xs px-2.5 py-1 rounded-xl bg-purple-900 hover:bg-cyan-500 hover:text-slate-950 text-cyan-200 border border-cyan-400/40 cursor-pointer">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="text-left sm:text-right">
+                                <p class="text-[11px] font-orbitron text-amber-300">WATAK PENAMPILAN</p>
+                                <p id="profile-character-name" class="font-orbitron text-base font-bold text-white">EJEN ARIF</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-xs font-orbitron">
+                                <span class="text-slate-300">KEMAJUAN PANGKAT SETERUSNYA</span>
+                                <span id="profile-progress-label" class="text-amber-300 font-bold">0 / 250 MARKAH</span>
+                            </div>
+                            <div class="w-full h-4 bg-slate-950 rounded-full overflow-hidden border border-cyan-500/40 p-0.5">
+                                <div id="profile-progress-bar" class="h-full rounded-full bg-gradient-to-r from-cyan-400 via-amber-400 to-rose-500 transition-all duration-500" style="width: 10%;"></div>
+                            </div>
+                            <div class="grid grid-cols-4 gap-1 pt-1 text-[10px] font-orbitron text-center">
+                                <span id="rank-step-1" class="text-cyan-300 font-bold">1. ROOKIE</span>
+                                <span id="rank-step-2" class="text-slate-500">2. OPERATIF</span>
+                                <span id="rank-step-3" class="text-slate-500">3. ELIT</span>
+                                <span id="rank-step-4" class="text-slate-500">4. MASTER</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-3 pt-1">
+                            <div class="bg-slate-950/80 rounded-2xl p-2.5 border border-indigo-800 text-center">
+                                <p class="text-[10px] text-slate-400 font-orbitron">MARKAH</p>
+                                <p id="profile-stat-score" class="font-orbitron text-lg font-black text-amber-300">0</p>
+                            </div>
+                            <div class="bg-slate-950/80 rounded-2xl p-2.5 border border-indigo-800 text-center">
+                                <p class="text-[10px] text-slate-400 font-orbitron">MISI SELESAI</p>
+                                <p id="profile-stat-missions" class="font-orbitron text-lg font-black text-emerald-400">0 / 3</p>
+                            </div>
+                            <div class="bg-slate-950/80 rounded-2xl p-2.5 border border-indigo-800 text-center">
+                                <p class="text-[10px] text-slate-400 font-orbitron">TAHAP SELESAI</p>
+                                <p id="profile-stat-levels" class="font-orbitron text-lg font-black text-cyan-300">0 / 9</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-sm sm:text-base font-bold text-amber-300 mb-3">PILIH AVATAR EJEN ANDA:</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div id="card-agent-arif" onclick="selectAgent('arif')" class="agent-card cursor-pointer rounded-3xl p-5 bg-indigo-950/90 border-2 border-cyan-400 transition-all hover:scale-[1.02] flex flex-col justify-between relative overflow-hidden shadow-xl">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-xs px-3 py-1 rounded-full bg-rose-500 text-white">PENEROKA BERANI</span>
+                                <span id="badge-arif" class="text-xs font-orbitron font-bold text-cyan-300 bg-cyan-950 px-3 py-1 rounded-full border border-cyan-400">DIPILIH ✓</span>
+                            </div>
+                            <div id="avatar-card-arif" class="h-48 w-full bg-gradient-to-b from-rose-500/20 to-indigo-950 rounded-2xl p-2 flex items-center justify-center my-2"></div>
+                            <div class="space-y-1.5 mt-2">
+                                <h3 class="font-orbitron text-lg font-black text-white">EJEN ARIF</h3>
+                                <p class="text-xs text-slate-200">Peramah, berani dan sentiasa ceria! Pakar mengesan bentuk simetri.</p>
+                            </div>
+                        </div>
+
+                        <div id="card-agent-aira" onclick="selectAgent('aira')" class="agent-card cursor-pointer rounded-3xl p-5 bg-indigo-950/90 border-2 border-indigo-700 hover:border-cyan-400 transition-all hover:scale-[1.02] flex flex-col justify-between relative overflow-hidden shadow-xl">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-xs px-3 py-1 rounded-full bg-cyan-400 text-slate-950">PAKAR TEKA-TEKI</span>
+                                <span id="badge-aira" class="text-xs font-orbitron font-bold text-slate-400 bg-slate-900 px-3 py-1 rounded-full">PILIH WATAK</span>
+                            </div>
+                            <div id="avatar-card-aira" class="h-48 w-full bg-gradient-to-b from-cyan-500/20 to-indigo-950 rounded-2xl p-2 flex items-center justify-center my-2"></div>
+                            <div class="space-y-1.5 mt-2">
+                                <h3 class="font-orbitron text-lg font-black text-white">EJEN AIRA</h3>
+                                <p class="text-xs text-slate-200">Bijak, yakin dan sangat teliti. Mahir mengira bilangan paksi simetri.</p>
+                            </div>
+                        </div>
+
+                        <div id="card-agent-baraq" onclick="selectAgent('baraq')" class="agent-card cursor-pointer rounded-3xl p-5 bg-indigo-950/90 border-2 border-indigo-700 hover:border-amber-400 transition-all hover:scale-[1.02] flex flex-col justify-between relative overflow-hidden shadow-xl">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-xs px-3 py-1 rounded-full bg-amber-400 text-slate-950">PAKAR STRATEGI</span>
+                                <span id="badge-baraq" class="text-xs font-orbitron font-bold text-slate-400 bg-slate-900 px-3 py-1 rounded-full">PILIH WATAK</span>
+                            </div>
+                            <div id="avatar-card-baraq" class="h-48 w-full bg-gradient-to-b from-amber-500/20 to-indigo-950 rounded-2xl p-2 flex items-center justify-center my-2"></div>
+                            <div class="space-y-1.5 mt-2">
+                                <h3 class="font-orbitron text-lg font-black text-white">EJEN BARAQ</h3>
+                                <p class="text-xs text-slate-200">Gagah, kelakar dan handal menyusun strategi cantuman corak batik.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PUSAT ILMU & GALERI SIMETRI BATIK -->
+        <section id="view-knowledge" class="hidden space-y-6">
+            <div class="nexus-panel batik-card-pattern rounded-[2rem] p-5 sm:p-8 space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-amber-400/40 pb-4">
+                    <div>
+                        <span class="text-xs font-orbitron text-amber-300 tracking-widest">ARKIB AKADEMI MARKAS NEXUS</span>
+                        <h2 class="font-orbitron text-xl sm:text-3xl font-black text-white">PUSAT ILMU & GALERI SIMETRI BATIK</h2>
+                        <p class="text-xs sm:text-sm text-slate-300 mt-1">Pelajari nota ringkas bergambar dan Galeri Corak Batik Malaysia sebelum memulakan misi!</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2.5">
+                        <button onclick="navigateTo('home')" class="px-4 py-2.5 rounded-2xl bg-indigo-950 hover:bg-purple-900 border-2 border-cyan-400/50 text-xs font-orbitron text-cyan-300 cursor-pointer">
+                            <i class="fa-solid fa-house mr-1"></i> Kembali ke Markas
+                        </button>
+                        <button onclick="navigateTo('missions')" class="btn-nexus-primary px-5 py-2.5 rounded-2xl font-orbitron text-xs sm:text-sm font-bold text-white cursor-pointer">
+                            <i class="fa-solid fa-bolt mr-1"></i> Uji Kefahaman Saya
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+                    <button onclick="switchKnowledgeTab('A')" id="ktab-btn-A" class="p-3 rounded-2xl font-orbitron text-xs font-bold bg-cyan-500 text-slate-950 border-2 border-white transition cursor-pointer">
+                        A. PENGENALAN SIMETRI
+                    </button>
+                    <button onclick="switchKnowledgeTab('B')" id="ktab-btn-B" class="p-3 rounded-2xl font-orbitron text-xs font-bold bg-indigo-950 text-cyan-300 border-2 border-cyan-400/40 hover:border-cyan-400 transition cursor-pointer">
+                        B. PAKSI SIMETRI
+                    </button>
+                    <button onclick="switchKnowledgeTab('C')" id="ktab-btn-C" class="p-3 rounded-2xl font-orbitron text-xs font-bold bg-indigo-950 text-cyan-300 border-2 border-cyan-400/40 hover:border-cyan-400 transition cursor-pointer">
+                        C. PANTULAN GRID
+                    </button>
+                    <button onclick="switchKnowledgeTab('D')" id="ktab-btn-D" class="p-3 rounded-2xl font-orbitron text-xs font-bold bg-indigo-950 text-cyan-300 border-2 border-cyan-400/40 hover:border-cyan-400 transition cursor-pointer">
+                        D. GALERI CORAK BATIK
+                    </button>
+                </div>
+
+                <!-- TOPIK A -->
+                <div id="ktab-panel-A" class="bg-indigo-950/90 border-2 border-cyan-400/50 rounded-3xl p-5 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <div class="lg:col-span-7 space-y-4">
+                        <span class="text-xs font-orbitron bg-cyan-500/20 text-cyan-300 px-3 py-1 rounded-full border border-cyan-400/40">TOPIK A • KONSEP ASAS</span>
+                        <h3 class="font-orbitron text-xl sm:text-2xl font-black text-white">Apakah Maksud Simetri?</h3>
+                        <p class="text-sm sm:text-base text-slate-100 leading-relaxed">
+                            <strong class="text-amber-300">Simetri</strong> bermaksud sesuatu bentuk atau corak yang dapat dibahagikan kepada <strong class="text-cyan-300">dua bahagian yang sama saiz dan sama bentuk</strong> apabila dilipat tepat di tengah.
+                        </p>
+                        <div class="bg-slate-950/80 rounded-2xl p-4 border border-indigo-800 space-y-2">
+                            <p class="font-orbitron text-xs font-bold text-amber-300">CIRI-CIRI BENTUK BERSIMETRI:</p>
+                            <ul class="text-xs sm:text-sm text-slate-200 space-y-1.5 list-disc list-inside">
+                                <li>Bahagian kiri dan kanan seimbang seperti cermin.</li>
+                                <li>Apabila dilipat, kedua-dua belah <strong>bertindih tepat</strong> tanpa lebihan.</li>
+                                <li><strong>Contoh:</strong> Rama-rama, daun pokok, dan wau bulan.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 flex flex-col items-center bg-slate-950/90 rounded-3xl p-4 border border-cyan-400/40">
+                        <svg viewBox="0 0 240 190" class="w-56 h-44">
+                            <path d="M120 95 C80 30, 25 40, 35 90 C40 110, 80 105, 120 95 Z" fill="#ff3b6b" stroke="#ffffff" stroke-width="2"/>
+                            <path d="M120 95 C160 30, 215 40, 205 90 C200 110, 160 105, 120 95 Z" fill="#ff3b6b" stroke="#ffffff" stroke-width="2"/>
+                            <path d="M120 95 C85 105, 45 135, 65 160 C85 170, 105 140, 120 95 Z" fill="#ffbe0b" stroke="#ffffff" stroke-width="2"/>
+                            <path d="M120 95 C155 105, 195 135, 175 160 C155 170, 135 140, 120 95 Z" fill="#ffbe0b" stroke="#ffffff" stroke-width="2"/>
+                            <rect x="116" y="55" width="8" height="85" rx="4" fill="#1e1b4b"/>
+                            <line x1="120" y1="15" x2="120" y2="175" stroke="#00f5d4" stroke-width="3.5" stroke-dasharray="7 5"/>
+                        </svg>
+                        <p class="text-xs font-orbitron text-cyan-300 mt-2 text-center">Rajah 1: Sayap kiri & kanan bertindih tepat!</p>
+                    </div>
+                </div>
+
+                <!-- TOPIK B -->
+                <div id="ktab-panel-B" class="hidden bg-indigo-950/90 border-2 border-amber-400/50 rounded-3xl p-5 sm:p-6 space-y-5">
+                    <div class="space-y-2">
+                        <span class="text-xs font-orbitron bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full border border-amber-400/40">TOPIK B • GARISAN LIPATAN</span>
+                        <h3 class="font-orbitron text-xl sm:text-2xl font-black text-white">Paksi Simetri & Bilangan Paksi Bentuk Geometri</h3>
+                        <p class="text-sm text-slate-100">
+                            <strong class="text-amber-300">Paksi simetri</strong> ialah <strong class="text-cyan-300">garisan lurus khayalan</strong> yang membahagikan sesuatu bentuk kepada dua bahagian yang sama saiz dan bentuk apabila dilipat.
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-slate-950/90 rounded-2xl p-4 border border-cyan-400/40 text-center space-y-2">
+                            <svg viewBox="0 0 120 120" class="w-24 h-24 mx-auto">
+                                <rect x="25" y="25" width="70" height="70" fill="rgba(0,245,212,0.2)" stroke="#00f5d4" stroke-width="3"/>
+                                <line x1="60" y1="12" x2="60" y2="108" stroke="#ffbe0b" stroke-width="2" stroke-dasharray="4 3"/>
+                                <line x1="12" y1="60" x2="108" y2="60" stroke="#ffbe0b" stroke-width="2" stroke-dasharray="4 3"/>
+                                <line x1="15" y1="15" x2="105" y2="105" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="4 3"/>
+                                <line x1="105" y1="15" x2="15" y2="105" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="4 3"/>
+                            </svg>
+                            <h4 class="font-orbitron text-xs font-bold text-white">SEGI EMPAT SAMA</h4>
+                            <span class="inline-block text-xs font-bold bg-amber-400 text-slate-950 px-3 py-0.5 rounded-full">4 Paksi Simetri</span>
+                        </div>
+                        <div class="bg-slate-950/90 rounded-2xl p-4 border border-cyan-400/40 text-center space-y-2">
+                            <svg viewBox="0 0 120 120" class="w-24 h-24 mx-auto">
+                                <rect x="18" y="34" width="84" height="52" fill="rgba(255,59,107,0.2)" stroke="#ff3b6b" stroke-width="3"/>
+                                <line x1="60" y1="18" x2="60" y2="102" stroke="#ffbe0b" stroke-width="2" stroke-dasharray="4 3"/>
+                                <line x1="10" y1="60" x2="110" y2="60" stroke="#ffbe0b" stroke-width="2" stroke-dasharray="4 3"/>
+                            </svg>
+                            <h4 class="font-orbitron text-xs font-bold text-white">SEGI EMPAT TEPAT</h4>
+                            <span class="inline-block text-xs font-bold bg-cyan-400 text-slate-950 px-3 py-0.5 rounded-full">2 Paksi Simetri</span>
+                        </div>
+                        <div class="bg-slate-950/90 rounded-2xl p-4 border border-cyan-400/40 text-center space-y-2">
+                            <svg viewBox="0 0 120 120" class="w-24 h-24 mx-auto">
+                                <polygon points="60,20 20,92 100,92" fill="rgba(255,190,11,0.2)" stroke="#ffbe0b" stroke-width="3"/>
+                                <line x1="60" y1="12" x2="60" y2="105" stroke="#00f5d4" stroke-width="2" stroke-dasharray="4 3"/>
+                                <line x1="16" y1="95" x2="86" y2="48" stroke="#00f5d4" stroke-width="2" stroke-dasharray="4 3"/>
+                                <line x1="104" y1="95" x2="34" y2="48" stroke="#00f5d4" stroke-width="2" stroke-dasharray="4 3"/>
+                            </svg>
+                            <h4 class="font-orbitron text-xs font-bold text-white">SEGI TIGA SAMA SISI</h4>
+                            <span class="inline-block text-xs font-bold bg-rose-500 text-white px-3 py-0.5 rounded-full">3 Paksi Simetri</span>
+                        </div>
+                        <div class="bg-slate-950/90 rounded-2xl p-4 border border-cyan-400/40 text-center space-y-2">
+                            <svg viewBox="0 0 120 120" class="w-24 h-24 mx-auto">
+                                <circle cx="60" cy="60" r="36" fill="rgba(168,85,247,0.25)" stroke="#c084fc" stroke-width="3"/>
+                                <line x1="60" y1="15" x2="60" y2="105" stroke="#00f5d4" stroke-width="1.8" stroke-dasharray="3 3"/>
+                                <line x1="15" y1="60" x2="105" y2="60" stroke="#00f5d4" stroke-width="1.8" stroke-dasharray="3 3"/>
+                                <line x1="28" y1="28" x2="92" y2="92" stroke="#ffbe0b" stroke-width="1.8" stroke-dasharray="3 3"/>
+                                <line x1="92" y1="28" x2="28" y2="92" stroke="#ffbe0b" stroke-width="1.8" stroke-dasharray="3 3"/>
+                            </svg>
+                            <h4 class="font-orbitron text-xs font-bold text-white">BULATAN PENUH</h4>
+                            <span class="inline-block text-xs font-bold bg-purple-500 text-white px-3 py-0.5 rounded-full">Tidak Terhingga (∞)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TOPIK C -->
+                <div id="ktab-panel-C" class="hidden bg-indigo-950/90 border-2 border-rose-400/50 rounded-3xl p-5 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-xs font-orbitron bg-rose-500/20 text-rose-300 px-3 py-1 rounded-full border border-rose-400/40">TOPIK C • PRINSIP CERMIN</span>
+                        <h3 class="font-orbitron text-xl sm:text-2xl font-black text-white">Bagaimana Pantulan Grid Berfungsi?</h3>
+                        <p class="text-sm text-slate-100 leading-relaxed">
+                            <strong class="text-cyan-300">Pantulan</strong> ialah pembalikan imej sesuatu objek pada satu garis paksi (seperti melihat diri di dalam cermin).
+                        </p>
+                        <div class="bg-slate-950/85 rounded-2xl p-4 border border-rose-400/40 space-y-2 text-xs sm:text-sm text-slate-200">
+                            <p class="font-orbitron text-xs font-bold text-amber-300">PERATURAN EMAS PANTULAN GRID:</p>
+                            <p>1. <strong class="text-white">Jarak Sama:</strong> Jika petak objek berada <strong>1 langkah</strong> di kiri paksi, petak pantulan mestilah <strong>1 langkah</strong> di kanan paksi.</p>
+                            <p>2. <strong class="text-white">Baris Sama:</strong> Kedudukan baris atas ke bawah tidak berubah, hanya arah kiri dan kanan yang terbalik!</p>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 flex flex-col items-center bg-slate-950/90 rounded-3xl p-4 border border-rose-400/40">
+                        <div class="relative p-3 bg-indigo-950 rounded-2xl border border-amber-400">
+                            <div class="absolute top-1 bottom-1 left-1/2 -translate-x-1/2 w-1 bg-amber-400"></div>
+                            <div class="grid grid-cols-4 gap-1.5">
+                                <div class="w-10 h-10 rounded-lg bg-slate-900 border border-slate-700"></div>
+                                <div class="w-10 h-10 rounded-lg bg-amber-400 flex items-center justify-center text-slate-950 font-bold text-xs">1</div>
+                                <div class="w-10 h-10 rounded-lg bg-cyan-400 flex items-center justify-center text-slate-950 font-bold text-xs">1</div>
+                                <div class="w-10 h-10 rounded-lg bg-slate-900 border border-slate-700"></div>
+
+                                <div class="w-10 h-10 rounded-lg bg-rose-500 flex items-center justify-center text-white font-bold text-xs">2</div>
+                                <div class="w-10 h-10 rounded-lg bg-slate-900 border border-slate-700"></div>
+                                <div class="w-10 h-10 rounded-lg bg-slate-900 border border-slate-700"></div>
+                                <div class="w-10 h-10 rounded-lg bg-purple-500 flex items-center justify-center text-white font-bold text-xs">2</div>
+                            </div>
+                        </div>
+                        <p class="text-xs font-orbitron text-amber-300 mt-2.5 text-center">Rajah 2: Jarak dari garis kuning tengah sentiasa sama!</p>
+                    </div>
+                </div>
+
+                <!-- TOPIK D: GALERI SIMETRI BATIK MALAYSIA -->
+                <div id="ktab-panel-D" class="hidden bg-indigo-950/90 border-2 border-purple-400/50 rounded-3xl p-5 sm:p-6 space-y-5">
+                    <div class="space-y-2">
+                        <span class="text-xs font-orbitron bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full border border-purple-400/40">TOPIK D • GALERI SIMETRI BATIK MALAYSIA</span>
+                        <h3 class="font-orbitron text-xl sm:text-2xl font-black text-white">Galeri Perbandingan: Motif Batik Simetri vs Tidak Simetri</h3>
+                        <p class="text-sm text-slate-100">
+                            Bandingkan motif batik Malaysia di bawah untuk memahami perbezaan corak yang mempunyai paksi simetri dan corak yang tidak simetri.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Contoh 1: Simetri -->
+                        <div class="bg-slate-950/90 rounded-2xl p-4 border-2 border-emerald-400/60 text-center space-y-2">
+                            <svg viewBox="0 0 180 150" class="w-40 h-32 mx-auto bg-indigo-950 rounded-xl border border-amber-400/40">
+                                <path d="M90 20 C115 55, 115 80, 90 95 C65 80, 65 55, 90 20 Z" fill="#ffbe0b"/>
+                                <path d="M90 95 C55 75, 30 90, 40 115 C60 125, 75 110, 90 95 Z" fill="#00f5d4"/>
+                                <path d="M90 95 C125 75, 150 90, 140 115 C120 125, 105 110, 90 95 Z" fill="#00f5d4"/>
+                                <line x1="90" y1="8" x2="90" y2="142" stroke="#ffffff" stroke-width="2" stroke-dasharray="5 3"/>
+                            </svg>
+                            <span class="inline-block text-[11px] font-orbitron font-bold bg-emerald-500/20 text-emerald-300 px-3 py-0.5 rounded-full border border-emerald-400">✓ BERSIMETRI (1 PAKSI)</span>
+                            <h4 class="font-orbitron text-xs font-bold text-white">Batik Teratai Klasik (Misi 1 & 2)</h4>
+                            <p class="text-xs text-slate-300">Sama seperti dalam misi! Kelopak kiri dan kanan seimbang tepat pada 1 garis lipatan menegak.</p>
+                        </div>
+
+                        <!-- Contoh 2: Tidak Simetri -->
+                        <div class="bg-slate-950/90 rounded-2xl p-4 border-2 border-rose-400/60 text-center space-y-2">
+                            <svg viewBox="0 0 180 150" class="w-40 h-32 mx-auto bg-indigo-950 rounded-xl border border-rose-400/40">
+                                <polygon points="90,20 45,125 135,125" fill="none" stroke="#ffbe0b" stroke-width="3"/>
+                                <circle cx="68" cy="92" r="13" fill="#00f5d4"/>
+                                <rect x="102" y="79" width="24" height="24" rx="4" fill="#ff3b6b"/>
+                                <line x1="90" y1="8" x2="90" y2="142" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="5 3"/>
+                            </svg>
+                            <span class="inline-block text-[11px] font-orbitron font-bold bg-rose-500/20 text-rose-300 px-3 py-0.5 rounded-full border border-rose-400">✗ TIDAK SIMETRI (0 PAKSI)</span>
+                            <h4 class="font-orbitron text-xs font-bold text-white">Batik Pucuk Rebung Asimetri (Misi 1)</h4>
+                            <p class="text-xs text-slate-300">Bulatan di kiri dan segi empat di kanan tidak bertindih apabila dilipat.</p>
+                        </div>
+
+                        <!-- Contoh 3: Simetri 4 Paksi -->
+                        <div class="bg-slate-950/90 rounded-2xl p-4 border-2 border-cyan-400/60 text-center space-y-2">
+                            <svg viewBox="0 0 180 150" class="w-40 h-32 mx-auto bg-indigo-950 rounded-xl border border-cyan-400/40">
+                                <polygon points="90,18 106,58 148,75 106,92 90,132 74,92 32,75 74,58" fill="#00f5d4" opacity="0.85"/>
+                                <circle cx="90" cy="75" r="14" fill="#ff3b6b"/>
+                                <line x1="90" y1="8" x2="90" y2="142" stroke="#ffbe0b" stroke-width="2" stroke-dasharray="4 3"/>
+                                <line x1="25" y1="75" x2="155" y2="75" stroke="#ffbe0b" stroke-width="2" stroke-dasharray="4 3"/>
+                                <line x1="40" y1="25" x2="140" y2="125" stroke="#ff3b6b" stroke-width="1.8" stroke-dasharray="4 3"/>
+                                <line x1="140" y1="25" x2="40" y2="125" stroke="#ff3b6b" stroke-width="1.8" stroke-dasharray="4 3"/>
+                            </svg>
+                            <span class="inline-block text-[11px] font-orbitron font-bold bg-cyan-500/20 text-cyan-300 px-3 py-0.5 rounded-full border border-cyan-400">✓ BERSIMETRI (4 PAKSI)</span>
+                            <h4 class="font-orbitron text-xs font-bold text-white">Batik Bintang Geometri (Misi 2)</h4>
+                            <p class="text-xs text-slate-300">Mempunyai 4 garisan lipatan: menegak, melintang, dan 2 pepenjuru.</p>
+                        </div>
+                    </div>
+
+                    <!-- MAKMAL LATIHAN LUKIS PAKSI SIMETRI BEBAS (SEIRING BAHAN KONKRIT) -->
+                    <div class="bg-slate-950/90 border-2 border-cyan-400/60 rounded-3xl p-4 sm:p-5 grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+                        <div class="lg:col-span-6 space-y-2.5">
+                            <span class="text-[11px] font-orbitron font-bold text-cyan-300 bg-cyan-950 px-3 py-1 rounded-full border border-cyan-400/50">
+                                <i class="fa-solid fa-pen-ruler mr-1"></i> MAKMAL LATIHAN LUKIS PAKSI (BENTUK ASAS & BATIK)
+                            </span>
+                            <h4 class="font-orbitron text-base sm:text-lg font-black text-white">Cuba Lukis Paksi Simetri Pada Bentuk Asas & Batik!</h4>
+                            <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                                Pilih bentuk geometri asas atau motif batik di bawah, kemudian seret jari atau tetikus untuk melukis kesemua garisan lipatan simetrinya:
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-1">
+                                <button onclick="setSandboxMotif('square-basic')" id="sb-btn-square" class="px-3 py-1.5 rounded-xl font-orbitron text-xs font-bold bg-amber-400 text-slate-950 cursor-pointer">
+                                    Segi Empat Sama (4)
+                                </button>
+                                <button onclick="setSandboxMotif('rect-basic')" id="sb-btn-rect" class="px-3 py-1.5 rounded-xl font-orbitron text-xs font-bold bg-indigo-950 text-cyan-300 border border-cyan-400/40 cursor-pointer">
+                                    Segi Empat Tepat (2)
+                                </button>
+                                <button onclick="setSandboxMotif('tri-basic')" id="sb-btn-tri" class="px-3 py-1.5 rounded-xl font-orbitron text-xs font-bold bg-indigo-950 text-cyan-300 border border-cyan-400/40 cursor-pointer">
+                                    Segi Tiga Sama Sisi (3)
+                                </button>
+                                <button onclick="setSandboxMotif('teratai')" id="sb-btn-teratai" class="px-3 py-1.5 rounded-xl font-orbitron text-xs font-bold bg-indigo-950 text-cyan-300 border border-cyan-400/40 cursor-pointer">
+                                    Batik Teratai (1)
+                                </button>
+                                <button onclick="setSandboxMotif('star-batik')" id="sb-btn-star" class="px-3 py-1.5 rounded-xl font-orbitron text-xs font-bold bg-indigo-950 text-cyan-300 border border-cyan-400/40 cursor-pointer">
+                                    Batik Bintang (4)
+                                </button>
+                                <button onclick="clearSandboxAxes()" class="px-3 py-1.5 rounded-xl font-orbitron text-xs font-bold bg-rose-950 text-rose-300 border border-rose-400/40 cursor-pointer">
+                                    <i class="fa-solid fa-eraser mr-1"></i> Padam Garis
+                                </button>
+                            </div>
+                            <div id="sandbox-status-box" class="bg-indigo-950/90 border border-amber-400/50 rounded-2xl p-3 text-xs text-amber-200">
+                                Paksi dilukis: <strong>0 / 4</strong> • Baki diperlukan: <strong>4 paksi lagi</strong>.
+                            </div>
+                        </div>
+                        <div class="lg:col-span-6 flex flex-col items-center">
+                            <div id="sandbox-canvas-wrapper" class="relative"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KOLEKSI LENCANA PENCAPAIAN EJEN NEXUS -->
+        <section id="view-badges" class="hidden space-y-6">
+            <div class="nexus-panel batik-card-pattern rounded-[2rem] p-5 sm:p-8 space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-purple-400/40 pb-4">
+                    <div>
+                        <span class="text-xs font-orbitron text-purple-300 tracking-widest">GALERI PENGIKTIRAFAN NEXUS</span>
+                        <h2 class="font-orbitron text-xl sm:text-3xl font-black text-white">KOLEKSI LENCANA EJEN</h2>
+                    </div>
+                    <button onclick="navigateTo('home')" class="px-4 py-2.5 rounded-2xl bg-indigo-950 hover:bg-purple-900 border-2 border-cyan-400/50 text-xs font-orbitron text-cyan-300 cursor-pointer">
+                        <i class="fa-solid fa-house mr-1"></i> KEMBALI KE MARKAS
+                    </button>
+                </div>
+                <div id="badges-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+            </div>
+        </section>
+
+        <!-- LAPORAN PENCAPAIAN & SIJIL RASMI EJEN NEXUS -->
+        <section id="view-report" class="hidden space-y-6">
+            <div class="nexus-panel batik-card-pattern rounded-[2rem] p-5 sm:p-8 space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-sky-400/40 pb-4">
+                    <div>
+                        <span class="text-xs font-orbitron text-sky-300 tracking-widest">ANALISIS PRESTASI OPERASI</span>
+                        <h2 class="font-orbitron text-xl sm:text-3xl font-black text-white">LAPORAN PENCAPAIAN & SIJIL NEXUS</h2>
+                    </div>
+                    <button onclick="navigateTo('home')" class="px-4 py-2.5 rounded-2xl bg-indigo-950 hover:bg-purple-900 border-2 border-cyan-400/50 text-xs font-orbitron text-cyan-300 cursor-pointer">
+                        <i class="fa-solid fa-house mr-1"></i> KEMBALI KE MARKAS
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-2 lg:grid-cols-5 gap-3">
+                    <div class="bg-indigo-950/90 border border-cyan-400/40 rounded-2xl p-3.5 text-center">
+                        <p class="text-[10px] font-orbitron text-cyan-300">SOALAN DIJAWAB</p>
+                        <p id="rep-total-answered" class="font-orbitron text-2xl font-black text-white mt-1">0</p>
+                    </div>
+                    <div class="bg-indigo-950/90 border border-emerald-400/40 rounded-2xl p-3.5 text-center">
+                        <p class="text-[10px] font-orbitron text-emerald-300">JAWAPAN BETUL</p>
+                        <p id="rep-correct-count" class="font-orbitron text-2xl font-black text-emerald-400 mt-1">0</p>
+                    </div>
+                    <div class="bg-indigo-950/90 border border-rose-400/40 rounded-2xl p-3.5 text-center">
+                        <p class="text-[10px] font-orbitron text-rose-300">JAWAPAN SALAH</p>
+                        <p id="rep-wrong-count" class="font-orbitron text-2xl font-black text-rose-400 mt-1">0</p>
+                    </div>
+                    <div class="bg-indigo-950/90 border border-amber-400/40 rounded-2xl p-3.5 text-center">
+                        <p class="text-[10px] font-orbitron text-amber-300">JUMLAH MARKAH</p>
+                        <p id="rep-score-count" class="font-orbitron text-2xl font-black text-amber-300 mt-1">0</p>
+                    </div>
+                    <div class="col-span-2 lg:col-span-1 bg-indigo-950/90 border border-purple-400/40 rounded-2xl p-3.5 text-center">
+                        <p class="text-[10px] font-orbitron text-purple-300">MASA OPERASI</p>
+                        <p id="rep-time-taken" class="font-orbitron text-2xl font-black text-white mt-1">00:00</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    <div class="bg-indigo-950/90 border border-cyan-400/40 rounded-3xl p-4 space-y-3">
+                        <h3 class="font-orbitron text-sm font-bold text-cyan-300"><i class="fa-solid fa-list-check mr-1"></i> STATUS PENYELESAIAN MISI</h3>
+                        <div id="rep-missions-status" class="space-y-2 text-xs sm:text-sm"></div>
+                    </div>
+                    <div class="bg-indigo-950/90 border border-amber-400/40 rounded-3xl p-4 space-y-3">
+                        <h3 class="font-orbitron text-sm font-bold text-amber-300"><i class="fa-solid fa-graduation-cap mr-1"></i> CADANGAN ULANG KAJI N.O.V.A.</h3>
+                        <div id="rep-revision-advice" class="text-xs sm:text-sm text-slate-200 leading-relaxed"></div>
+                    </div>
+                </div>
+
+                <div id="certificate-section" class="pt-2"></div>
+            </div>
+        </section>
+
+        <!-- PAPARAN MISI: 3 MISI MATEMATIK & 9 TAHAP KESUKARAN -->
+        <section id="view-missions" class="hidden space-y-6">
+            <div class="nexus-panel batik-card-pattern rounded-[2rem] p-4 sm:p-6 flex flex-col md:flex-row items-center gap-4 sm:gap-6">
+                <div id="briefing-agent-avatar" class="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-indigo-950 border-2 border-cyan-400 p-1.5 shrink-0 flex items-center justify-center shadow-lg"></div>
+                <div class="flex-1 text-center md:text-left space-y-1.5">
+                    <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
+                        <span class="text-xs font-orbitron bg-rose-500/20 text-rose-300 border border-rose-400/50 px-3 py-0.5 rounded-full">PAPAN MISI NEXUS</span>
+                        <span id="briefing-agent-title" class="text-xs font-orbitron text-amber-300 font-bold">EJEN ARIF SEDIA BERTUGAS</span>
+                    </div>
+                    <h2 class="font-orbitron text-lg sm:text-2xl font-black text-white">PILIH MISI & TAHAP SIMETRI BATIK</h2>
+                    <p id="briefing-quote" class="text-xs sm:text-sm text-slate-200">
+                        "Selesaikan kesemua 9 tahap merentasi 3 misi utama untuk memulihkan arkib Batik Malaysia!"
+                    </p>
+                </div>
+                <div class="shrink-0 flex flex-wrap gap-2">
+                    <button onclick="navigateTo('knowledge')" class="px-4 py-2.5 rounded-2xl bg-amber-500/20 hover:bg-amber-400 hover:text-slate-950 border-2 border-amber-400/60 text-xs font-orbitron text-amber-300 transition cursor-pointer">
+                        <i class="fa-solid fa-book-open mr-1"></i> PUSAT ILMU
+                    </button>
+                    <button onclick="navigateTo('profile')" class="px-4 py-2.5 rounded-2xl bg-purple-900 hover:bg-purple-800 border-2 border-cyan-400/50 text-xs font-orbitron text-cyan-300 transition cursor-pointer">
+                        <i class="fa-solid fa-user-pen mr-1"></i> TUKAR WATAK
+                    </button>
+                </div>
+            </div>
+
+            <div id="missions-container" class="grid grid-cols-1 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <!-- ARENA PERMAINAN UTAMA & N.O.V.A. BATIK SCANNER -->
+        <section id="view-game" class="hidden space-y-4">
+            <div class="nexus-panel rounded-3xl p-3 sm:p-4 flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <button onclick="navigateTo('missions')" class="px-3.5 py-2 rounded-2xl bg-indigo-950 hover:bg-purple-900 border-2 border-cyan-400/40 text-xs font-orbitron text-cyan-200 flex items-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-arrow-left"></i> PAPAN MISI
+                    </button>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span id="game-mission-badge" class="text-[10px] font-orbitron font-bold px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/50">MISI 01</span>
+                            <span id="game-level-badge" class="text-[10px] font-orbitron font-bold px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/50">TAHAP 1 / 9</span>
+                        </div>
+                        <h3 id="game-title" class="font-orbitron font-bold text-sm sm:text-lg text-white mt-0.5">Pengesan Corak Simetri</h3>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2">
+                    <button onclick="navigateTo('knowledge')" class="px-3.5 py-2.5 rounded-2xl bg-indigo-950 hover:bg-amber-400 hover:text-slate-950 border-2 border-amber-400/60 text-amber-300 font-orbitron font-bold text-xs flex items-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-book-open"></i> NOTA ILMU
+                    </button>
+                    <button id="btn-nova-assist" onclick="activateNOVA()" class="btn-nexus-cyan px-4 py-2.5 rounded-2xl font-orbitron font-bold text-xs sm:text-sm flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-robot"></i> IMBASAN N.O.V.A. (<span id="nova-charges">3</span>)
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+                <!-- Kanvas Interaktif Corak Batik -->
+                <div class="lg:col-span-8 nexus-panel batik-card-pattern batik-frame-glow rounded-[2rem] p-4 sm:p-6 relative overflow-hidden">
+                    <div id="nova-overlay-effect" class="hidden nova-scanner-line"></div>
+
+                    <div class="bg-indigo-950/95 border-2 border-amber-400/60 rounded-2xl p-3.5 mb-4 flex items-start gap-3 shadow-md">
+                        <div class="w-9 h-9 rounded-xl bg-amber-400/20 border border-amber-400 flex items-center justify-center shrink-0 mt-0.5">
+                            <i class="fa-solid fa-compass-drafting text-amber-300 text-lg"></i>
+                        </div>
+                        <div>
+                            <p class="text-[11px] font-orbitron text-amber-300 uppercase tracking-wider">CABARAN MATEMATIK SIMETRI</p>
+                            <p id="game-instruction" class="text-sm sm:text-base font-semibold text-white">Memuatkan arahan misi...</p>
+                        </div>
+                    </div>
+
+                    <div id="game-workspace" class="min-h-[300px] sm:min-h-[360px] bg-slate-950/90 rounded-3xl border-2 border-cyan-500/30 p-3 sm:p-5 flex flex-col items-center justify-center relative"></div>
+
+                    <div id="game-controls" class="mt-5 flex flex-wrap items-center justify-center gap-3"></div>
+                </div>
+
+                <!-- Panel Pembantu Digital N.O.V.A. -->
+                <div class="lg:col-span-4 space-y-4">
+                    <div class="nexus-panel rounded-[2rem] p-4 border-2 border-cyan-400/70 relative overflow-hidden">
+                        <div class="flex items-center justify-between border-b border-cyan-400/30 pb-2.5 mb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
+                                <h4 class="font-orbitron font-black text-sm text-cyan-300 tracking-wider">PEMBANTU N.O.V.A.</h4>
+                            </div>
+                            <span class="text-[10px] font-bold bg-purple-900 text-cyan-200 px-2.5 py-0.5 rounded-full border border-cyan-400/40">AI NEXUS</span>
+                        </div>
+
+                        <div class="flex items-center gap-3 bg-indigo-950/90 rounded-2xl p-3 border border-cyan-400/40 mb-3">
+                            <div id="nova-panel-avatar" class="w-20 h-20 shrink-0 nova-float"></div>
+                            <div>
+                                <p class="text-xs font-orbitron font-bold text-amber-300">N.O.V.A. v3.0</p>
+                                <p class="text-[11px] text-slate-300 leading-snug">Neural Operation Virtual Assistant — Pakar pengimbas paksi & pantulan batik!</p>
+                                <span id="nova-status-text" class="inline-block mt-1 text-[10px] font-orbitron text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded-full border border-emerald-500/40">● SEDIA MEMBANTU</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-950/90 border-2 border-purple-500/40 rounded-2xl p-3.5 min-h-[120px] flex flex-col justify-between">
+                            <div>
+                                <p class="text-[11px] font-orbitron text-cyan-300 mb-1"><i class="fa-solid fa-lightbulb text-amber-300 mr-1"></i> PANDUAN N.O.V.A.:</p>
+                                <p id="nova-hint-display" class="text-xs sm:text-sm text-slate-100 leading-relaxed">
+                                    Hai Ejen! Klik butang <strong class="text-cyan-300">"IMBASAN N.O.V.A."</strong> di atas jika kamu perlukan petunjuk paksi simetri!
+                                </p>
+                            </div>
+                            <div class="mt-2 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] text-slate-400 font-orbitron">
+                                <button onclick="toggleNovaChat(true)" class="text-cyan-300 hover:underline cursor-pointer"><i class="fa-solid fa-comments mr-1"></i> BUKA SEMBANG N.O.V.A.</button>
+                                <span class="text-amber-400">BATIK SIMETRI</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nexus-panel rounded-3xl p-3.5 flex items-center gap-3">
+                        <div id="game-agent-avatar" class="w-16 h-16 rounded-2xl bg-indigo-950 border-2 border-cyan-400/60 p-1 shrink-0 flex items-center justify-center"></div>
+                        <div>
+                            <p id="game-agent-name" class="font-orbitron text-xs font-bold text-amber-300">EJEN ARIF</p>
+                            <p id="game-agent-msg" class="text-xs text-slate-200 italic mt-0.5">"Perhatikan kedua-dua belah corak batik dengan teliti. Kamu pasti boleh!"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- BUTANG TERAPUNG & TETINGKAP SEMBANG INTERAKTIF N.O.V.A. -->
+    <div id="nova-floating-widget" class="fixed bottom-4 right-4 z-50 flex flex-col items-end">
+        <div id="nova-chat-window" class="hidden mb-3 w-[92vw] max-w-md nexus-panel rounded-[2rem] border-2 border-cyan-400 shadow-2xl overflow-hidden flex flex-col">
+            <div class="bg-gradient-to-r from-indigo-950 via-purple-950 to-indigo-950 px-4 py-3 border-b border-cyan-400/50 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div id="nova-chat-header-icon" class="w-10 h-10 rounded-full bg-slate-900 border border-cyan-400 p-0.5"></div>
+                    <div>
+                        <h4 class="font-orbitron text-xs sm:text-sm font-black text-white">N.O.V.A. — PEMBANTU EJEN</h4>
+                        <p class="text-[10px] text-emerald-400 font-orbitron">● ONLINE • PAKAR SIMETRI BATIK</p>
+                    </div>
+                </div>
+                <button onclick="toggleNovaChat(false)" class="w-8 h-8 rounded-xl bg-slate-900 hover:bg-rose-500 text-slate-300 hover:text-white flex items-center justify-center cursor-pointer">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="nova-chat-messages" class="p-3.5 h-64 overflow-y-auto space-y-3 bg-slate-950/90 text-xs sm:text-sm">
+                <div class="flex items-start gap-2">
+                    <div class="w-7 h-7 rounded-full bg-cyan-500/20 border border-cyan-400 flex items-center justify-center text-cyan-300 shrink-0 mt-0.5">
+                        <i class="fa-solid fa-robot text-xs"></i>
+                    </div>
+                    <div class="bg-indigo-950/95 border border-cyan-400/40 rounded-2xl rounded-tl-none p-3 text-slate-100">
+                        Hai Ejen! Saya <strong class="text-cyan-300">N.O.V.A.</strong> Tanya saya apa-apa tentang <strong>simetri, paksi simetri, pantulan, corak batik</strong>, atau klik soalan cadangan di bawah!
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-3 py-2 bg-indigo-950/95 border-t border-indigo-800">
+                <p class="text-[10px] font-orbitron text-amber-300 mb-1.5">SOALAN CADANGAN PANTAS:</p>
+                <div class="flex flex-wrap gap-1.5 max-h-20 overflow-y-auto">
+                    <button onclick="askSuggestedQuestion('Apakah maksud paksi simetri?')" class="text-[11px] bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-cyan-200 border border-cyan-400/40 rounded-full px-2.5 py-1 transition cursor-pointer">
+                        1. Apakah maksud paksi simetri?
+                    </button>
+                    <button onclick="askSuggestedQuestion('Bagaimanakah cara mengenal pasti paksi simetri?')" class="text-[11px] bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-cyan-200 border border-cyan-400/40 rounded-full px-2.5 py-1 transition cursor-pointer">
+                        2. Cara mengenal pasti paksi simetri?
+                    </button>
+                    <button onclick="askSuggestedQuestion('Apakah itu pantulan?')" class="text-[11px] bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-cyan-200 border border-cyan-400/40 rounded-full px-2.5 py-1 transition cursor-pointer">
+                        3. Apakah itu pantulan?
+                    </button>
+                    <button onclick="askSuggestedQuestion('Boleh berikan contoh simetri dalam corak batik?')" class="text-[11px] bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-cyan-200 border border-cyan-400/40 rounded-full px-2.5 py-1 transition cursor-pointer">
+                        4. Contoh simetri dalam corak batik?
+                    </button>
+                    <button onclick="askSuggestedQuestion('Mengapa jawapan saya salah?')" class="text-[11px] bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-cyan-200 border border-cyan-400/40 rounded-full px-2.5 py-1 transition cursor-pointer">
+                        5. Mengapa jawapan saya salah?
+                    </button>
+                </div>
+            </div>
+
+            <form onsubmit="handleNovaChatSubmit(event)" class="p-3 bg-indigo-950 border-t border-cyan-400/40 flex items-center gap-2">
+                <input id="nova-chat-input" type="text" placeholder="Tanya N.O.V.A. tentang Matematik..." class="flex-1 px-3.5 py-2 rounded-xl bg-slate-950 border border-cyan-400/50 text-white text-xs focus:outline-none focus:border-amber-400">
+                <button type="submit" class="px-4 py-2 rounded-xl btn-nexus-cyan font-orbitron font-bold text-xs cursor-pointer">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+
+        <button onclick="toggleNovaChat()" class="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-400 via-indigo-600 to-purple-600 border-2 border-white shadow-[0_0_20px_rgba(0,245,212,0.7)] flex items-center justify-center cursor-pointer hover:scale-105 transition nova-float" title="Buka Sembang N.O.V.A. AI">
+            <div id="nova-floating-avatar" class="w-12 h-12"></div>
+        </button>
+    </div>
+
+    <!-- TETINGKAP MODAL UTAMA -->
+    <div id="feedback-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="nexus-panel batik-card-pattern rounded-[2rem] max-w-md w-full p-6 text-center space-y-4 border-2 border-cyan-400 shadow-2xl">
+            <div id="modal-icon-box"></div>
+            <h3 id="modal-title" class="font-orbitron text-xl font-black text-white">MAKLUMAT</h3>
+            <p id="modal-message" class="text-xs sm:text-sm text-slate-200 leading-relaxed"></p>
+            <div id="modal-actions" class="flex flex-wrap items-center justify-center gap-3 pt-2"></div>
+        </div>
+    </div>
+
+    <!-- SKRIP UTAMA PERMAINAN -->
+    <script>
+        // Kesan Bunyi Tone.js
+        const sfxSynth = new Tone.Synth({
+            oscillator: { type: "triangle" },
+            envelope: { attack: 0.005, decay: 0.1, sustain: 0, release: 0.1 }
+        }).toDestination();
+
+        const sfxSuccessSynth = new Tone.PolySynth(Tone.Synth, {
+            envelope: { attack: 0.005, decay: 0.2, sustain: 0.1, release: 0.2 }
+        }).toDestination();
+
+        function playSFX(type) {
+            try {
+                if (Tone.context.state !== 'running') Tone.start();
+                const now = Tone.now();
+                if (type === 'click') sfxSynth.triggerAttackRelease("C5", "32n", now);
+                else if (type === 'nova') sfxSynth.triggerAttackRelease("G5", "16n", now);
+                else if (type === 'success') sfxSuccessSynth.triggerAttackRelease(["C4", "E4", "G4", "C5"], "8n", now);
+                else if (type === 'error') sfxSynth.triggerAttackRelease("C3", "8n", now);
+            } catch (e) {}
+        }
+
+        // Data 3 Misi Utama dan 9 Tahap Kesukaran
+        const MISSIONS = [
+            {
+                id: 1,
+                code: 'MISI 01',
+                title: 'ASAS SIMETRI BENTUK & BATIK',
+                subtitle: 'Level 1 Rookie: Lukis paksi simetri bentuk asas & kenal pasti corak bersimetri.',
+                accent: 'cyan',
+                levels: [
+                    { id: 1, levelNum: 1, name: 'Lukis 2 Paksi Segi Empat Tepat', type: 'axis-count', motifType: 'rect-basic', correctCount: 2, instruction: 'Level 1 Rookie: Lukis 2 paksi simetri bagi Segi Empat Tepat ini (menegak & melintang).', novaHint: 'Tip N.O.V.A.: Segi empat tepat hanya ada 2 lipatan tepat (menegak & melintang). Pepenjuru tidak bertindih!' },
+                    { id: 2, levelNum: 2, name: 'Lukis 3 Paksi Segi Tiga Sama Sisi', type: 'axis-count', motifType: 'tri-basic', correctCount: 3, instruction: 'Level 1 Rookie: Lukis kesemua 3 paksi simetri bagi Segi Tiga Sama Sisi ini.', novaHint: 'Tip N.O.V.A.: Setiap bucu segi tiga sama sisi boleh dilipat ke tengah sisi bertentangan (jumlah 3 paksi)!' },
+                    { id: 3, levelNum: 3, name: 'Pengecam Simetri Batik Rebung', type: 'identify', motifType: 'rebung-asymmetric', isSymmetric: false, instruction: 'Level 1 Rookie: Perhatikan motif Batik Pucuk Rebung ini. Adakah ia mempunyai simetri?', novaHint: 'Tip N.O.V.A.: Bandingkan bentuk di sebelah kiri (bulatan) dan kanan (segi empat). Adakah ia sama?' }
+                ]
+            },
+            {
+                id: 2,
+                code: 'MISI 02',
+                title: 'PAKSI LIPATAN BATIK',
+                subtitle: 'Level 2 Operative: Kenal pasti kedudukan dan bilangan paksi simetri pada corak batik kompleks.',
+                accent: 'amber',
+                levels: [
+                    { id: 4, levelNum: 4, name: 'Paksi Menegak Teratai', type: 'axis', motifType: 'vertical-batik', correctAxis: 'vertical', requiredAxes: 1, instruction: 'Level 2 Operative: Lukis 1 paksi simetri menegak pada motif Batik Teratai ini.', novaHint: 'Tip N.O.V.A.: Garisan lipatan menegak membelah tengah motif batik dengan sempurna.' },
+                    { id: 5, levelNum: 5, name: 'Paksi Melintang Batik', type: 'axis', motifType: 'horizontal-batik', correctAxis: 'horizontal', requiredAxes: 1, instruction: 'Level 2 Operative: Lukis 1 paksi simetri melintang bagi corak batik ini.', novaHint: 'Tip N.O.V.A.: Garisan lipatan melintang membahagikan bahagian atas dan bawah.' },
+                    { id: 6, levelNum: 6, name: 'Lukis 4 Paksi Bintang Batik', type: 'axis-count', motifType: 'star-batik', correctCount: 4, instruction: 'Level 2 Operative: Lukis kesemua 4 paksi simetri bagi motif Batik Bintang ini.', novaHint: 'Tip N.O.V.A.: Motif bintang ini mempunyai paksi menegak, melintang, dan 2 pepenjuru (jumlah 4).' }
+                ]
+            },
+            {
+                id: 2,
+                code: 'MISI 02',
+                title: 'PAKSI LIPATAN BATIK',
+                subtitle: 'Level 2 Operative: Kenal pasti kedudukan dan bilangan paksi simetri pada corak batik kompleks.',
+                accent: 'amber',
+                levels: [
+                    { id: 4, levelNum: 4, name: 'Paksi Menegak Teratai', type: 'axis', motifType: 'vertical-batik', correctAxis: 'vertical', instruction: 'Level 2 Operative: Pilih paksi simetri yang betul untuk motif batik ini.', novaHint: 'Tip N.O.V.A.: Garisan lipatan menegak membelah tengah motif batik dengan sempurna.' },
+                    { id: 5, levelNum: 5, name: 'Paksi Melintang Batik', type: 'axis', motifType: 'horizontal-batik', correctAxis: 'horizontal', instruction: 'Level 2 Operative: Pilih paksi simetri melintang bagi corak batik ini.', novaHint: 'Tip N.O.V.A.: Garisan lipatan melintang membahagikan bahagian atas dan bawah.' },
+                    { id: 6, levelNum: 6, name: 'Bilangan Paksi Bintang Batik', type: 'axis-count', motifType: 'star-batik', correctCount: 4, instruction: 'Level 2 Operative: Berapakah jumlah paksi simetri bagi motif bintang batik ini?', novaHint: 'Tip N.O.V.A.: Motif bintang ini mempunyai paksi menegak, melintang, dan 2 pepenjuru (jumlah 4).' }
+                ]
+            },
+            {
+                id: 3,
+                code: 'MISI 03',
+                title: 'ARKITEK PANTULAN GRID',
+                subtitle: 'Level 3 Elite: Aktiviti pantulan corak batik separuh lengkap dan analisis kesilapan.',
+                accent: 'rose',
+                levels: [
+                    { id: 7, levelNum: 7, name: 'Grid Pantulan Asas (4x4)', type: 'reflect', gridSize: 4, leftPattern: [[1,0],[0,1],[1,1],[0,0]], instruction: 'Level 3 Elite: Lengkapkan petak di sebelah kanan untuk pantulan corak batik.', novaHint: 'Tip N.O.V.A.: Jarak petak dari garisan kuning tengah mesti sama di sebelah kanan.' },
+                    { id: 8, levelNum: 8, name: 'Grid Pantulan Sederhana (6x6)', type: 'reflect', gridSize: 6, leftPattern: [[1,0,1],[0,1,0],[1,1,1],[0,0,1],[1,0,0],[0,1,1]], instruction: 'Level 3 Elite: Lengkapkan corak pantulan batik 6x6 ini.', novaHint: 'Tip N.O.V.A.: Salin setiap petak berwarna ke kedudukan bertentangan dengan jarak yang sama dari paksi.' },
+                    { id: 9, levelNum: 9, name: 'Grid Pantulan Master (8x8)', type: 'reflect', gridSize: 8, leftPattern: [[1,0,1,0],[0,1,1,0],[1,1,0,1],[0,0,1,1],[1,0,0,0],[0,1,0,1],[1,1,1,0],[0,0,0,1]], instruction: 'Level 3 Elite: Cabaran akhir master! Lengkapkan corak pantulan batik ini.', novaHint: 'Tip N.O.V.A.: Teliti baris demi baris dari atas ke bawah supaya pantulan sempurna!' }
+                ]
+            }
+        ];
+
+        // Avatar Chibi Original & Robot N.O.V.A.
+        function getChibiSVG(agentId) {
+            if (agentId === 'arif') {
+                return `
+                <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-lg">
+                    <defs>
+                        <linearGradient id="arifSuit" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#ff3b6b"/>
+                            <stop offset="100%" stop-color="#1d4ed8"/>
+                        </linearGradient>
+                    </defs>
+                    <circle cx="100" cy="105" r="78" fill="rgba(255, 59, 107, 0.16)"/>
+                    <path d="M68 132 Q100 120 132 132 L140 176 Q100 185 60 176 Z" fill="url(#arifSuit)" stroke="#ffffff" stroke-width="2.5"/>
+                    <path d="M80 132 L100 162 L120 132 Z" fill="#0f172a"/>
+                    <circle cx="100" cy="148" r="6" fill="#ffbe0b"/>
+                    <path d="M68 135 Q48 145 58 162" stroke="#ff3b6b" stroke-width="12" stroke-linecap="round" fill="none"/>
+                    <path d="M132 135 Q152 145 142 162" stroke="#1d4ed8" stroke-width="12" stroke-linecap="round" fill="none"/>
+                    <circle cx="100" cy="84" r="46" fill="#fde68a" stroke="#7c2d12" stroke-width="2"/>
+                    <path d="M54 78 C52 35, 148 35, 146 78 C135 55, 115 50, 100 58 C85 50, 65 55, 54 78 Z" fill="#0f172a"/>
+                    <rect x="62" y="74" width="36" height="20" rx="6" fill="rgba(0, 245, 212, 0.3)" stroke="#00f5d4" stroke-width="2.5"/>
+                    <rect x="102" y="74" width="36" height="20" rx="6" fill="rgba(0, 245, 212, 0.3)" stroke="#00f5d4" stroke-width="2.5"/>
+                    <line x1="98" y1="84" x2="102" y2="84" stroke="#00f5d4" stroke-width="3"/>
+                    <circle cx="80" cy="84" r="7" fill="#0f172a"/>
+                    <circle cx="82" cy="81" r="2.5" fill="#ffffff"/>
+                    <circle cx="120" cy="84" r="7" fill="#0f172a"/>
+                    <circle cx="122" cy="81" r="2.5" fill="#ffffff"/>
+                    <path d="M88 102 Q100 112 112 102" stroke="#7c2d12" stroke-width="3" stroke-linecap="round" fill="none"/>
+                </svg>`;
+            } else if (agentId === 'aira') {
+                return `
+                <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-lg">
+                    <circle cx="100" cy="105" r="78" fill="rgba(0, 245, 212, 0.16)"/>
+                    <circle cx="48" cy="72" r="16" fill="#1e1b4b"/>
+                    <circle cx="152" cy="72" r="16" fill="#1e1b4b"/>
+                    <path d="M70 134 Q100 122 130 134 L138 176 Q100 184 62 176 Z" fill="#eab308" stroke="#ffffff" stroke-width="2.5"/>
+                    <path d="M78 134 L100 162 L122 134 Z" fill="#1e1b4b"/>
+                    <circle cx="100" cy="148" r="6" fill="#00f5d4"/>
+                    <path d="M58 64 C70 42, 130 42, 142 64" fill="none" stroke="#facc15" stroke-width="5" stroke-linecap="round"/>
+                    <circle cx="100" cy="84" r="45" fill="#fed7aa" stroke="#7c2d12" stroke-width="2"/>
+                    <path d="M54 75 C54 40, 146 40, 146 75 C130 58, 112 55, 100 60 C88 55, 70 58, 54 75 Z" fill="#1e1b4b"/>
+                    <rect x="66" y="74" width="30" height="18" rx="6" fill="rgba(0, 245, 212, 0.3)" stroke="#00f5d4" stroke-width="2.5"/>
+                    <rect x="104" y="74" width="30" height="18" rx="6" fill="rgba(0, 245, 212, 0.3)" stroke="#00f5d4" stroke-width="2.5"/>
+                    <line x1="96" y1="83" x2="104" y2="83" stroke="#00f5d4" stroke-width="2.5"/>
+                    <circle cx="81" cy="83" r="7.5" fill="#1e1b4b"/>
+                    <circle cx="83" cy="80" r="2.5" fill="#ffffff"/>
+                    <circle cx="119" cy="83" r="7.5" fill="#1e1b4b"/>
+                    <circle cx="121" cy="80" r="2.5" fill="#ffffff"/>
+                    <path d="M91 102 Q100 110 109 102" stroke="#7c2d12" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+                </svg>`;
+            } else {
+                return `
+                <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-lg">
+                    <circle cx="100" cy="105" r="78" fill="rgba(255, 190, 11, 0.16)"/>
+                    <rect x="54" y="130" width="92" height="48" rx="18" fill="#2563eb" stroke="#ffffff" stroke-width="2.5"/>
+                    <ellipse cx="54" cy="138" rx="15" ry="11" fill="#facc15" stroke="#ffffff" stroke-width="2"/>
+                    <ellipse cx="146" cy="138" rx="15" ry="11" fill="#facc15" stroke="#ffffff" stroke-width="2"/>
+                    <rect x="84" y="140" width="32" height="22" rx="6" fill="#0f172a"/>
+                    <circle cx="100" cy="151" r="6" fill="#00f5d4"/>
+                    <circle cx="100" cy="84" r="46" fill="#f6ad55" stroke="#7c2d12" stroke-width="2"/>
+                    <circle cx="53" cy="78" r="13" fill="#1c1917"/>
+                    <circle cx="147" cy="78" r="13" fill="#1c1917"/>
+                    <path d="M58 66 C62 34, 138 34, 142 66 Z" fill="#0f172a" stroke="#facc15" stroke-width="2.5"/>
+                    <rect x="62" y="60" width="76" height="10" rx="4" fill="#facc15"/>
+                    <rect x="70" y="72" width="22" height="5" rx="2.5" fill="#1c1917" transform="rotate(-5 81 74)"/>
+                    <rect x="108" y="72" width="22" height="5" rx="2.5" fill="#1c1917" transform="rotate(5 119 74)"/>
+                    <circle cx="81" cy="86" r="8" fill="#1e1b4b"/>
+                    <circle cx="84" cy="83" r="3" fill="#ffffff"/>
+                    <circle cx="119" cy="86" r="8" fill="#1e1b4b"/>
+                    <circle cx="122" cy="83" r="3" fill="#ffffff"/>
+                    <path d="M84 100 Q100 118 116 100 Z" fill="#ffffff" stroke="#7c2d12" stroke-width="2.5"/>
+                </svg>`;
+            }
+        }
+
+        function getNOVASVG() {
+            return `
+            <svg viewBox="0 0 140 140" class="w-full h-full drop-shadow-md">
+                <line x1="70" y1="26" x2="70" y2="12" stroke="#00f5d4" stroke-width="4" stroke-linecap="round"/>
+                <circle cx="70" cy="10" r="6" fill="#ffbe0b" stroke="#ffffff" stroke-width="2"/>
+                <ellipse cx="22" cy="72" rx="10" ry="18" fill="#ff3b6b" stroke="#ffffff" stroke-width="2"/>
+                <ellipse cx="118" cy="72" rx="10" ry="18" fill="#ff3b6b" stroke="#ffffff" stroke-width="2"/>
+                <rect x="30" y="26" width="80" height="76" rx="34" fill="#f8fafc" stroke="#00f5d4" stroke-width="3.5"/>
+                <rect x="40" y="40" width="60" height="44" rx="20" fill="#0f172a"/>
+                <circle cx="56" cy="60" r="7" fill="#00f5d4"/>
+                <circle cx="58" cy="58" r="2.5" fill="#ffffff"/>
+                <circle cx="84" cy="60" r="7" fill="#00f5d4"/>
+                <circle cx="86" cy="58" r="2.5" fill="#ffffff"/>
+                <path d="M63 71 Q70 77 77 71" stroke="#ffbe0b" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <ellipse cx="70" cy="112" rx="24" ry="7" fill="rgba(0, 245, 212, 0.45)"/>
+            </svg>`;
+        }
+
+        // Keadaan Permainan
+        const gameState = {
+            agentCodename: 'EJEN PELATIH',
+            selectedAgent: 'arif',
+            score: 0,
+            lives: 3,
+            maxLives: 3,
+            completedLevels: [],
+            currentLevelId: 1,
+            novaCharges: 3,
+            novaActiveForCurrentQuestion: false,
+            userGridState: [],
+            selectedAxis: null,
+            drawnAxes: [],
+            sandboxMotif: 'square-basic',
+            sandboxDrawnAxes: [],
+            totalAnswered: 0,
+            correctCount: 0,
+            wrongCount: 0,
+            wrongByMission: { 1: 0, 2: 0, 3: 0 },
+            lastWrongReason: '',
+            currentRankIndex: 0,
+            elapsedSeconds: 0,
+            timerInterval: null
+        };
+
+        const RANKS = [
+            { index: 0, title: 'EJEN ROOKIE', short: 'ROOKIE', minScore: 0, reqMissions: 0 },
+            { index: 1, title: 'EJEN OPERATIF', short: 'OPERATIF', minScore: 250, reqMissions: 1 },
+            { index: 2, title: 'EJEN ELIT', short: 'ELIT', minScore: 550, reqMissions: 2 },
+            { index: 3, title: 'EJEN MASTER', short: 'MASTER', minScore: 850, reqMissions: 3 }
+        ];
+
+        const ACHIEVEMENT_BADGES = [
+            { id: 'recruit', title: 'Rekrut Markas NEXUS', desc: 'Mendaftar masuk sebagai ejen pelatih baharu.', icon: 'fa-id-card-clip', check: () => true },
+            { id: 'm1', title: 'Pengesan Simetri Batik', desc: 'Menamatkan kesemua 3 tahap dalam Misi 01.', icon: 'fa-shapes', check: () => isMissionComplete(1) },
+            { id: 'm2', title: 'Pakar Paksi Lipatan', desc: 'Menamatkan kesemua 3 tahap dalam Misi 02.', icon: 'fa-ruler-combined', check: () => isMissionComplete(2) },
+            { id: 'm3', title: 'Arkitek Pantulan Grid', desc: 'Menamatkan kesemua 3 tahap dalam Misi 03.', icon: 'fa-wand-magic-sparkles', check: () => isMissionComplete(3) },
+            { id: 'elit', title: 'Lencana Ejen Elit', desc: 'Mencapai pangkat Ejen Elit melalui markah dan misi.', icon: 'fa-bolt', check: () => calculateCurrentRank().index >= 2 },
+            { id: 'master', title: 'Wira Master Batik NEXUS', desc: 'Menyelesaikan kesemua 3 misi (9 tahap) dengan 850+ markah.', icon: 'fa-crown', check: () => calculateCurrentRank().index >= 3 }
+        ];
+
+        const AGENTS = {
+            arif: {
+                id: 'arif',
+                name: 'EJEN ARIF',
+                role: 'PENEROKA',
+                badgeColor: 'bg-rose-500 text-white',
+                quote: '"Jom Ejen! Dengan Kompas Holo dan bantuan N.O.V.A., kita pasti berjaya mengesan semua simetri batik!"',
+                encouragement: '"Hebat! Keseimbangan simetri batik ini tepat sekali, macam ejen profesional!"'
+            },
+            aira: {
+                id: 'aira',
+                name: 'EJEN AIRA',
+                role: 'TEKA-TEKI',
+                badgeColor: 'bg-cyan-400 text-slate-950',
+                quote: '"Perhatikan paksi lipatan dan jarak setiap motif batik dengan teliti. Matematik adalah kunci kemenangan kita!"',
+                encouragement: '"Analisis yang sangat bijak! Pengiraan paksi dan pantulan kamu tepat 100%!"'
+            },
+            baraq: {
+                id: 'baraq',
+                name: 'EJEN BARAQ',
+                role: 'STRATEGI',
+                badgeColor: 'bg-amber-400 text-slate-950',
+                quote: '"Hahaha! Jangan risau, Ejen Baraq sentiasa bersedia! Mari kita cantumkan corak batik ini dengan penuh semangat!"',
+                encouragement: '"Terbaiklah kawan! Strategi cantuman pantulan kamu memang padu!"'
+            }
+        };
+
+        // Aliran Permulaan 3 Babak Cerita
+        function setQuickCodename(name) {
+            playSFX('click');
+            const input = document.getElementById('input-agent-codename');
+            if (input) input.value = name;
+        }
+
+        function goToStoryAct(actNum) {
+            playSFX('nova');
+            if (actNum === 2) {
+                const input = document.getElementById('input-agent-codename');
+                const val = input ? input.value.trim() : '';
+                gameState.agentCodename = val ? val.toUpperCase() : 'EJEN PELATIH';
+                const welcomeText = document.getElementById('act2-welcome-text');
+                if (welcomeText) {
+                    welcomeText.innerHTML = `"Selamat tiba di pusat operasi rahsia <strong class="text-cyan-300">Markas NEXUS</strong>, <strong class="text-amber-300">${gameState.agentCodename}</strong>! Skrin hologram mengesan gangguan pada arkib warisan Batik Malaysia. Ejen Arif, Ejen Aira, dan Ejen Baraq sedia bekerjasama dengan anda!"`;
+                }
+            }
+
+            [1, 2, 3].forEach(n => {
+                const actEl = document.getElementById(`story-act-${n}`);
+                const dotEl = document.getElementById(`story-dot-${n}`);
+                const lblEl = document.getElementById(`story-label-${n}`);
+                if (actEl) actEl.classList.toggle('hidden', n !== actNum);
+                if (dotEl) {
+                    dotEl.className = n <= actNum
+                        ? 'w-3 h-3 rounded-full bg-cyan-400 shadow-[0_0_8px_#00f5d4]'
+                        : 'w-3 h-3 rounded-full bg-slate-600';
+                }
+                if (lblEl) {
+                    lblEl.className = n === actNum
+                        ? 'text-xs font-orbitron font-bold text-cyan-300'
+                        : 'text-xs font-orbitron text-slate-400 hidden sm:inline';
+                }
+            });
+        }
+
+        function completeIntroToHub() {
+            playSFX('success');
+            document.getElementById('view-intro').classList.add('hidden');
+            document.getElementById('main-hud-header').classList.remove('hidden');
+            startOperationTimer();
+            navigateTo('home');
+        }
+
+        function skipIntroToHub() {
+            const input = document.getElementById('input-agent-codename');
+            const val = input ? input.value.trim() : '';
+            if (val) gameState.agentCodename = val.toUpperCase();
+            completeIntroToHub();
+        }
+
+        function replayStoryIntro() {
+            playSFX('click');
+            document.getElementById('main-hud-header').classList.add('hidden');
+            ['home', 'profile', 'knowledge', 'badges', 'report', 'missions', 'game'].forEach(v => {
+                const el = document.getElementById(`view-${v}`);
+                if (el) el.classList.add('hidden');
+            });
+            document.getElementById('view-intro').classList.remove('hidden');
+            goToStoryAct(1);
+        }
+
+        function startOperationTimer() {
+            if (gameState.timerInterval) return;
+            gameState.timerInterval = setInterval(() => {
+                gameState.elapsedSeconds++;
+                const formatted = formatSeconds(gameState.elapsedSeconds);
+                const hudTimer = document.getElementById('hud-timer');
+                if (hudTimer) hudTimer.textContent = formatted;
+            }, 1000);
+        }
+
+        function formatSeconds(sec) {
+            const m = String(Math.floor(sec / 60)).padStart(2, '0');
+            const s = String(sec % 60).padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        // Navigasi & Kemaskini HUD
+        function navigateTo(viewName) {
+            playSFX('click');
+            document.getElementById('view-intro').classList.add('hidden');
+            document.getElementById('main-hud-header').classList.remove('hidden');
+
+            const views = ['home', 'profile', 'knowledge', 'badges', 'report', 'missions', 'game'];
+            views.forEach(v => {
+                const el = document.getElementById(`view-${v}`);
+                if (el) el.classList.add('hidden');
+            });
+
+            const target = document.getElementById(`view-${viewName}`);
+            if (target) target.classList.remove('hidden');
+
+            if (viewName === 'missions') renderMissionsList();
+            else if (viewName === 'badges') renderBadgesCollection();
+            else if (viewName === 'report') renderAchievementReport();
+            else if (viewName === 'knowledge') renderSandboxWorkspace();
+            updateHUD();
+        }
+
+        function isMissionComplete(missionId) {
+            const m = MISSIONS.find(item => item.id === missionId);
+            if (!m) return false;
+            return m.levels.every(l => gameState.completedLevels.includes(l.id));
+        }
+
+        function getCompletedMissionsCount() {
+            return [1, 2, 3].filter(id => isMissionComplete(id)).length;
+        }
+
+        function calculateCurrentRank() {
+            const completedMissions = getCompletedMissionsCount();
+            const score = gameState.score;
+
+            if (score >= 850 && completedMissions === 3) return RANKS[3];
+            if (score >= 550 || completedMissions >= 2) return RANKS[2];
+            if (score >= 250 || completedMissions >= 1) return RANKS[1];
+            return RANKS[0];
+        }
+
+        function updateHUD() {
+            const agent = AGENTS[gameState.selectedAgent];
+            const chibiSVG = getChibiSVG(agent.id);
+            const currentRank = calculateCurrentRank();
+            const completedMissions = getCompletedMissionsCount();
+
+            document.getElementById('hud-agent-avatar').innerHTML = chibiSVG;
+            document.getElementById('hud-codename').textContent = gameState.agentCodename;
+            document.getElementById('hud-agent-name').textContent = agent.name;
+            document.getElementById('hud-rank-pill').textContent = currentRank.title;
+
+            const roleEl = document.getElementById('hud-agent-role');
+            roleEl.textContent = agent.role;
+            roleEl.className = `hidden md:inline-block text-[10px] font-bold px-2 py-0.5 rounded-full ${agent.badgeColor}`;
+
+            const livesContainer = document.getElementById('hud-lives');
+            livesContainer.innerHTML = '';
+            for (let i = 0; i < gameState.maxLives; i++) {
+                livesContainer.innerHTML += i < gameState.lives
+                    ? `<i class="fa-solid fa-heart text-rose-500 drop-shadow"></i>`
+                    : `<i class="fa-regular fa-heart text-slate-600"></i>`;
+            }
+
+            document.getElementById('hud-score').textContent = gameState.score;
+            const completedEl = document.getElementById('home-completed-count');
+            if (completedEl) completedEl.textContent = `${gameState.completedLevels.length} / 9`;
+            const homeScoreEl = document.getElementById('home-score-display');
+            if (homeScoreEl) homeScoreEl.textContent = gameState.score;
+            const homeBadgesEl = document.getElementById('home-badges-count');
+            if (homeBadgesEl) {
+                const unlocked = ACHIEVEMENT_BADGES.filter(b => b.check()).length;
+                homeBadgesEl.textContent = `${unlocked} / ${ACHIEVEMENT_BADGES.length}`;
+            }
+
+            const homeHero = document.getElementById('home-hero-character');
+            if (homeHero) homeHero.innerHTML = chibiSVG;
+            const homeCodename = document.getElementById('home-codename-badge');
+            if (homeCodename) homeCodename.textContent = gameState.agentCodename;
+            const homeRankBadge = document.getElementById('home-rank-badge');
+            if (homeRankBadge) homeRankBadge.textContent = currentRank.short;
+            const homeHeading = document.getElementById('home-welcome-heading');
+            if (homeHeading) homeHeading.innerHTML = `SELAMAT BERTUGAS, <span class="text-cyan-300">${gameState.agentCodename}!</span>`;
+            const homeRankTitle = document.getElementById('home-rank-title');
+            if (homeRankTitle) homeRankTitle.textContent = currentRank.title;
+
+            let progressPct = 100;
+            let nextText = 'PANGKAT TERTINGGI DICAPAI!';
+            if (currentRank.index < 3) {
+                const nextRank = RANKS[currentRank.index + 1];
+                const prevScore = currentRank.minScore;
+                const targetScore = nextRank.minScore;
+                progressPct = Math.min(100, Math.max(8, Math.round(((gameState.score - prevScore) / (targetScore - prevScore)) * 100)));
+                nextText = `${gameState.score}/${targetScore} markah ke ${nextRank.title}`;
+            }
+            const homeBar = document.getElementById('home-rank-progress-bar');
+            if (homeBar) homeBar.style.width = `${progressPct}%`;
+            const homeNextTxt = document.getElementById('home-rank-next-text');
+            if (homeNextTxt) homeNextTxt.textContent = nextText;
+
+            const profAvatar = document.getElementById('profile-active-avatar');
+            if (profAvatar) {
+                profAvatar.innerHTML = chibiSVG;
+                document.getElementById('profile-rank-badge').textContent = currentRank.title;
+                document.getElementById('profile-codename-display').textContent = gameState.agentCodename;
+                document.getElementById('profile-character-name').textContent = agent.name;
+                document.getElementById('profile-progress-label').textContent = nextText;
+                document.getElementById('profile-progress-bar').style.width = `${progressPct}%`;
+                document.getElementById('profile-stat-score').textContent = gameState.score;
+                document.getElementById('profile-stat-missions').textContent = `${completedMissions} / 3`;
+                document.getElementById('profile-stat-levels').textContent = `${gameState.completedLevels.length} / 9`;
+
+                [1, 2, 3, 4].forEach(step => {
+                    const stepEl = document.getElementById(`rank-step-${step}`);
+                    if (stepEl) {
+                        stepEl.className = (step - 1) <= currentRank.index
+                            ? 'text-cyan-300 font-bold'
+                            : 'text-slate-500';
+                    }
+                });
+            }
+
+            const briefAvatar = document.getElementById('briefing-agent-avatar');
+            if (briefAvatar) {
+                briefAvatar.innerHTML = chibiSVG;
+                document.getElementById('briefing-agent-title').textContent = `${gameState.agentCodename} • ${agent.name} (${agent.role})`;
+                document.getElementById('briefing-quote').textContent = agent.quote;
+            }
+
+            const gameAgentAvatar = document.getElementById('game-agent-avatar');
+            if (gameAgentAvatar) {
+                gameAgentAvatar.innerHTML = chibiSVG;
+                document.getElementById('game-agent-name').textContent = `${gameState.agentCodename} (${agent.name})`;
+            }
+        }
+
+        function promptEditCodename() {
+            showModal('info', 'UBAH NAMA KOD EJEN', `
+                <p class="text-xs text-slate-300 mb-2">Masukkan nama kod ejen baharu anda:</p>
+                <input id="modal-codename-input" type="text" maxlength="18" value="${gameState.agentCodename}" class="w-full px-3 py-2 rounded-xl bg-slate-950 border-2 border-cyan-400 text-white font-bold text-center">
+            `, [
+                { text: 'SIMPAN NAMA ✓', action: 'saveNewCodename()' },
+                { text: 'BATAL', action: 'closeModal()', secondary: true }
+            ]);
+        }
+
+        function saveNewCodename() {
+            const inp = document.getElementById('modal-codename-input');
+            if (inp && inp.value.trim()) {
+                gameState.agentCodename = inp.value.trim().toUpperCase();
+            }
+            closeModal();
+            updateHUD();
+        }
+
+        // Pusat Ilmu, Koleksi Lencana & Laporan Pencapaian
+        function switchKnowledgeTab(tabCode) {
+            playSFX('click');
+            ['A', 'B', 'C', 'D'].forEach(code => {
+                const btn = document.getElementById(`ktab-btn-${code}`);
+                const panel = document.getElementById(`ktab-panel-${code}`);
+                if (btn) {
+                    btn.className = code === tabCode
+                        ? 'p-3 rounded-2xl font-orbitron text-xs font-bold bg-cyan-500 text-slate-950 border-2 border-white transition cursor-pointer'
+                        : 'p-3 rounded-2xl font-orbitron text-xs font-bold bg-indigo-950 text-cyan-300 border-2 border-cyan-400/40 hover:border-cyan-400 transition cursor-pointer';
+                }
+                if (panel) panel.classList.toggle('hidden', code !== tabCode);
+            });
+        }
+
+        function renderBadgesCollection() {
+            const grid = document.getElementById('badges-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            ACHIEVEMENT_BADGES.forEach(b => {
+                const unlocked = b.check();
+                grid.innerHTML += `
+                    <div class="rounded-3xl p-5 border-2 ${unlocked ? 'bg-indigo-950/95 border-amber-400 shadow-[0_0_18px_rgba(255,190,11,0.25)]' : 'bg-slate-950/80 border-slate-800 opacity-65'} flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-2xl ${unlocked ? 'bg-amber-400/20 border-2 border-amber-400 text-amber-300' : 'bg-slate-900 border border-slate-700 text-slate-600'} flex items-center justify-center text-2xl shrink-0">
+                            <i class="fa-solid ${unlocked ? b.icon : 'fa-lock'}"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-orbitron font-bold ${unlocked ? 'text-emerald-400' : 'text-slate-500'}">
+                                ${unlocked ? '● LENCANA DIBUKA' : '● TERKUNCI'}
+                            </span>
+                            <h4 class="font-orbitron text-sm sm:text-base font-bold text-white">${b.title}</h4>
+                            <p class="text-xs text-slate-300 mt-0.5">${b.desc}</p>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderAchievementReport() {
+            document.getElementById('rep-total-answered').textContent = gameState.totalAnswered;
+            document.getElementById('rep-correct-count').textContent = gameState.correctCount;
+            document.getElementById('rep-wrong-count').textContent = gameState.wrongCount;
+            document.getElementById('rep-score-count').textContent = gameState.score;
+            document.getElementById('rep-time-taken').textContent = formatSeconds(gameState.elapsedSeconds);
+
+            const statusEl = document.getElementById('rep-missions-status');
+            statusEl.innerHTML = MISSIONS.map(m => {
+                const done = isMissionComplete(m.id);
+                const count = m.levels.filter(l => gameState.completedLevels.includes(l.id)).length;
+                return `
+                    <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/80 border border-indigo-800">
+                        <span class="font-bold text-white">${m.code}: ${m.title}</span>
+                        <span class="font-orbitron text-xs font-bold ${done ? 'text-emerald-400' : 'text-amber-300'}">${count}/3 ${done ? '✓ SELESAI' : 'DALAM PROSES'}</span>
+                    </div>
+                `;
+            }).join('');
+
+            const adviceEl = document.getElementById('rep-revision-advice');
+            let adviceList = [];
+            if (gameState.wrongByMission[1] > 0) adviceList.push('• <strong>Topik A (Pengenalan Simetri):</strong> Semak semula cara membandingkan bentuk kiri dan kanan supaya bertindih tepat.');
+            if (gameState.wrongByMission[2] > 0) adviceList.push('• <strong>Topik B (Paksi Simetri):</strong> Latih mengira bilangan garisan lipatan pada bentuk geometri dan motif bintang.');
+            if (gameState.wrongByMission[3] > 0) adviceList.push('• <strong>Topik C (Pantulan Grid):</strong> Pastikan jarak petak pantulan dari paksi tengah sentiasa sama.');
+
+            if (adviceList.length === 0) {
+                adviceEl.innerHTML = `<p class="text-emerald-300 font-semibold">Cemerlang! Tiada kesilapan ketara dikesan. Teruskan pengembaraan anda dan rujuk <strong>Topik D (Galeri Corak Batik)</strong> untuk pengayaan!</p>`;
+            } else {
+                adviceEl.innerHTML = `<p class="mb-2 text-amber-200">Berdasarkan rekod jawapan anda, N.O.V.A. mencadangkan ulang kaji bahagian berikut di <strong>Pusat Ilmu</strong>:</p>${adviceList.join('<br>')}`;
+            }
+
+            const certSec = document.getElementById('certificate-section');
+            const allMissionsDone = getCompletedMissionsCount() === 3;
+            const agent = AGENTS[gameState.selectedAgent];
+            const rank = calculateCurrentRank();
+
+            if (allMissionsDone) {
+                certSec.innerHTML = `
+                    <div id="certificate-printable" class="rounded-[2rem] p-6 sm:p-8 bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-950 border-4 border-amber-400 text-center space-y-4 shadow-2xl relative overflow-hidden">
+                        <div class="flex items-center justify-center gap-2 text-amber-300 font-orbitron text-xs tracking-widest">
+                            <i class="fa-solid fa-award"></i> ORGANISASI SAINS & MATEMATIK MARKAS NEXUS <i class="fa-solid fa-award"></i>
+                        </div>
+                        <h3 class="font-orbitron text-2xl sm:text-3xl font-black text-white">SIJIL PENGIKTIRAFAN EJEN NEXUS</h3>
+                        <p class="text-xs sm:text-sm text-slate-300">Dengan ini diperakui bahawa ejen berikut telah berjaya memulihkan kesemua 3 Misi Arkib Simetri Batik Malaysia:</p>
+                        <div class="w-24 h-24 mx-auto rounded-3xl bg-slate-900 border-2 border-cyan-400 p-1.5">${getChibiSVG(agent.id)}</div>
+                        <div>
+                            <p class="font-orbitron text-2xl sm:text-3xl font-black text-cyan-300">${gameState.agentCodename}</p>
+                            <p class="font-orbitron text-xs text-amber-300 mt-1">PANGKAT RASMI: ${rank.title} • SKOR: ${gameState.score} BINTANG</p>
+                        </div>
+                        <div class="pt-2">
+                            <button onclick="window.print()" class="btn-nexus-cyan px-6 py-2.5 rounded-2xl font-orbitron font-bold text-xs sm:text-sm cursor-pointer">
+                                <i class="fa-solid fa-print mr-1"></i> CETAK / SIMPAN SIJIL
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                certSec.innerHTML = `
+                    <div class="rounded-3xl p-5 bg-slate-950/85 border-2 border-dashed border-amber-400/40 text-center space-y-2">
+                        <i class="fa-solid fa-lock text-amber-300 text-2xl"></i>
+                        <h4 class="font-orbitron text-sm sm:text-base font-bold text-white">SIJIL RASMI EJEN NEXUS TERKUNCI</h4>
+                        <p class="text-xs text-slate-300">Selesaikan kesemua <strong>3 Misi Utama (9 Tahap)</strong> di Peta Misi untuk membuka sijil pengiktirafan rasmi anda!</p>
+                    </div>
+                `;
+            }
+        }
+
+        // N.O.V.A. Sembang Interaktif
+        function toggleNovaChat(forceState = null) {
+            playSFX('click');
+            const chatWin = document.getElementById('nova-chat-window');
+            if (!chatWin) return;
+            if (forceState === true) chatWin.classList.remove('hidden');
+            else if (forceState === false) chatWin.classList.add('hidden');
+            else chatWin.classList.toggle('hidden');
+        }
+
+        function askSuggestedQuestion(questionText) {
+            const input = document.getElementById('nova-chat-input');
+            if (input) input.value = questionText;
+            processNovaUserMessage(questionText);
+        }
+
+        function handleNovaChatSubmit(event) {
+            event.preventDefault();
+            const input = document.getElementById('nova-chat-input');
+            if (!input) return;
+            const text = input.value.trim();
+            if (!text) return;
+            input.value = '';
+            processNovaUserMessage(text);
+        }
+
+        function processNovaUserMessage(userText) {
+            playSFX('nova');
+            const msgBox = document.getElementById('nova-chat-messages');
+            if (!msgBox) return;
+
+            msgBox.innerHTML += `
+                <div class="flex justify-end">
+                    <div class="bg-rose-500/25 border border-rose-400/50 rounded-2xl rounded-tr-none p-3 text-white max-w-[85%]">
+                        ${escapeHTML(userText)}
+                    </div>
+                </div>
+            `;
+
+            const reply = generateNovaKnowledgeReply(userText);
+            msgBox.innerHTML += `
+                <div class="flex items-start gap-2">
+                    <div class="w-7 h-7 rounded-full bg-cyan-500/20 border border-cyan-400 flex items-center justify-center text-cyan-300 shrink-0 mt-0.5">
+                        <i class="fa-solid fa-robot text-xs"></i>
+                    </div>
+                    <div class="bg-indigo-950/95 border border-cyan-400/40 rounded-2xl rounded-tl-none p-3 text-slate-100 max-w-[88%] leading-relaxed">
+                        ${reply}
+                    </div>
+                </div>
+            `;
+            msgBox.scrollTop = msgBox.scrollHeight;
+        }
+
+        function generateNovaKnowledgeReply(rawQuery) {
+            const q = rawQuery.toLowerCase();
+
+            if (q.includes('salah') || q.includes('silap') || q.includes('kenapa') || q.includes('mengapa')) {
+                if (gameState.lastWrongReason) {
+                    return `Berdasarkan analisis terakhir N.O.V.A.: <strong class="text-amber-300">${gameState.lastWrongReason}</strong><br>Tip: Bayangkan bentuk itu dilipat tepat pada garisan paksi — kedua-dua belah mesti bertindih sama saiz!`;
+                }
+                return `Biasanya jawapan menjadi kurang tepat apabila:<br>1) Bilangan paksi dikira sekali sahaja tanpa mengira garisan pepenjuru.<br>2) Dalam pantulan grid, jarak petak dari garisan tengah tidak sama.<br>Teruskan mencuba, kamu semakin mahir!`;
+            }
+
+            if (q.includes('cara') && q.includes('paksi')) {
+                return `<strong>Cara mengenal pasti paksi simetri:</strong><br>1. Bayangkan satu garisan lurus membelah bentuk atau motif batik kepada dua.<br>2. Lipat secara bayangan mengikut garisan tersebut.<br>3. Jika kedua-dua bahagian <strong>bertindih tepat</strong> tanpa lebihan, itulah paksi simetrinya!`;
+            }
+
+            if (q.includes('paksi')) {
+                return `<strong>Paksi simetri</strong> ialah <strong>garisan lurus khayalan</strong> yang membahagikan sesuatu bentuk kepada dua bahagian yang sama saiz dan bentuk apabila dilipat.<br>• Segi empat sama: <strong>4 paksi</strong><br>• Segi empat tepat: <strong>2 paksi</strong><br>• Segi tiga sama sisi: <strong>3 paksi</strong>.`;
+            }
+
+            if (q.includes('pantul') || q.includes('cermin') || q.includes('grid')) {
+                return `<strong>Pantulan</strong> bermaksud pembalikan imej sesuatu objek pada satu garis paksi (seperti melihat cermin).<br>Ingat peraturan emas grid: <strong>Jarak petak objek ke garis paksi = jarak petak imej ke garis paksi</strong> pada baris yang sama!`;
+            }
+
+            if (q.includes('batik') || q.includes('motif') || q.includes('teratai') || q.includes('rebung') || q.includes('wau')) {
+                return `Dalam <strong>Corak Batik Malaysia</strong>, motif tradisional seperti <strong>Bunga Teratai</strong>, <strong>Pucuk Rebung</strong>, dan <strong>Wau Bulan</strong> direka menggunakan paksi simetri supaya kelopak kiri dan kanannya seimbang dan cantik!`;
+            }
+
+            if (q.includes('simetri') || q.includes('maksud') || q.includes('apa itu')) {
+                return `<strong>Simetri</strong> bermaksud sesuatu bentuk atau corak yang mempunyai dua bahagian yang seimbang, sama bentuk dan sama saiz apabila dilipat pada garis tengah (contohnya rama-rama dan daun).`;
+            }
+
+            if (q.includes('petunjuk') || q.includes('tolong') || q.includes('bantu') || q.includes('susah')) {
+                const lvlData = getLevelById(gameState.currentLevelId);
+                if (lvlData) {
+                    return `<strong>Petunjuk Tahap Semasa (${lvlData.level.name}):</strong><br>${lvlData.level.novaHint}`;
+                }
+                return `Jangan risau Ejen! Buka <strong>Pusat Ilmu</strong> untuk melihat rajah bergambar, atau klik <strong>Imbasan N.O.V.A.</strong> semasa bermain!`;
+            }
+
+            if (q.includes('pangkat') || q.includes('markah') || q.includes('naik')) {
+                return `Sistem Pangkat Markas NEXUS mempunyai 4 tahap:<br>1. <strong>Ejen Rookie</strong> (0+ markah)<br>2. <strong>Ejen Operatif</strong> (250+ markah / selesai Misi 1)<br>3. <strong>Ejen Elit</strong> (550+ markah / selesai Misi 2)<br>4. <strong>Ejen Master</strong> (850+ markah & selesai semua 3 misi)!`;
+            }
+
+            if (q.includes('hai') || q.includes('hello') || q.includes('terima kasih') || q.includes('hebat')) {
+                return `Sama-sama, ${gameState.agentCodename}! Semangat juang kamu hebat sekali! Jom teruskan misi memulihkan corak Batik Malaysia!`;
+            }
+
+            return `Maaf Ejen! N.O.V.A. hanya diprogramkan untuk membantu dalam topik <strong>Matematik Simetri, Paksi Simetri, Pantulan, dan Corak Batik</strong> sahaja. Cuba tanya N.O.V.A. tentang topik tersebut ya!`;
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>"']/g, m => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[m]));
+        }
+
+        // Pemilihan Watak
+        function selectAgent(agentId) {
+            playSFX('nova');
+            gameState.selectedAgent = agentId;
+
+            ['arif', 'aira', 'baraq'].forEach(id => {
+                const card = document.getElementById(`card-agent-${id}`);
+                const badge = document.getElementById(`badge-${id}`);
+                if (id === agentId) {
+                    card.classList.remove('border-indigo-700');
+                    card.classList.add('border-cyan-400', 'ring-2', 'ring-cyan-400/50');
+                    badge.textContent = 'DIPILIH ✓';
+                    badge.className = 'text-xs font-orbitron font-bold text-cyan-300 bg-cyan-950 px-3 py-1 rounded-full border border-cyan-400';
+                } else {
+                    card.classList.remove('border-cyan-400', 'ring-2', 'ring-cyan-400/50');
+                    card.classList.add('border-indigo-700');
+                    badge.textContent = 'PILIH WATAK';
+                    badge.className = 'text-xs font-orbitron font-bold text-slate-400 bg-slate-900 px-3 py-1 rounded-full';
+                }
+            });
+
+            updateHUD();
+        }
+
+        // Paparan 3 Misi & 9 Tahap Kesukaran
+        function renderMissionsList() {
+            const container = document.getElementById('missions-container');
+            container.innerHTML = '';
+
+            MISSIONS.forEach(mission => {
+                const completedInMission = mission.levels.filter(l => gameState.completedLevels.includes(l.id)).length;
+                
+                let borderClass = 'border-cyan-400/60';
+                let accentText = 'text-cyan-300';
+                let badgeBg = 'bg-cyan-500/20 text-cyan-300 border-cyan-400/50';
+                if (mission.accent === 'amber') {
+                    borderClass = 'border-amber-400/60';
+                    accentText = 'text-amber-300';
+                    badgeBg = 'bg-amber-500/20 text-amber-300 border-amber-400/50';
+                } else if (mission.accent === 'rose') {
+                    borderClass = 'border-rose-400/60';
+                    accentText = 'text-rose-300';
+                    badgeBg = 'bg-rose-500/20 text-rose-300 border-rose-400/50';
+                }
+
+                let levelsHTML = '';
+                mission.levels.forEach(lvl => {
+                    const isDone = gameState.completedLevels.includes(lvl.id);
+                    levelsHTML += `
+                        <button onclick="startLevel(${lvl.id})" class="w-full text-left p-3.5 rounded-2xl bg-indigo-950/90 hover:bg-purple-900/90 border-2 ${isDone ? 'border-emerald-400/70' : 'border-indigo-800 hover:border-cyan-400'} transition flex items-center justify-between group cursor-pointer shadow">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-2xl ${isDone ? 'bg-emerald-500/20 text-emerald-300 border-2 border-emerald-400' : 'bg-slate-900 text-cyan-300 border-2 border-indigo-700'} flex items-center justify-center font-orbitron font-bold text-xs">
+                                    ${isDone ? '<i class="fa-solid fa-check"></i>' : 'T' + lvl.levelNum}
+                                </div>
+                                <div>
+                                    <p class="text-[11px] font-orbitron text-slate-400">TAHAP ${lvl.levelNum}</p>
+                                    <p class="text-sm sm:text-base font-bold text-white group-hover:text-cyan-300 transition">${lvl.name}</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-orbitron px-3 py-1.5 rounded-xl ${isDone ? 'bg-emerald-950 text-emerald-300 border border-emerald-500/40' : 'bg-cyan-950 text-cyan-300 border border-cyan-500/40'}">
+                                ${isDone ? 'SELESAI' : 'MAIN ▶'}
+                            </span>
+                        </button>
+                    `;
+                });
+
+                container.innerHTML += `
+                    <div class="nexus-panel batik-card-pattern rounded-[2rem] p-5 border-2 ${borderClass} flex flex-col justify-between space-y-4 shadow-xl">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-orbitron text-xs font-bold px-3 py-1 rounded-full border ${badgeBg}">${mission.code}</span>
+                                <span class="font-orbitron text-xs font-bold ${accentText}">${completedInMission} / 3 SELESAI</span>
+                            </div>
+                            <h3 class="font-orbitron text-lg font-black text-white">${mission.title}</h3>
+                            <p class="text-xs sm:text-sm text-slate-300 mt-1">${mission.subtitle}</p>
+                        </div>
+                        <div class="space-y-2.5 pt-2">
+                            ${levelsHTML}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Enjin Permainan Simetri Batik
+        function getLevelById(levelId) {
+            for (const m of MISSIONS) {
+                for (const l of m.levels) {
+                    if (l.id === levelId) return { mission: m, level: l };
+                }
+            }
+            return null;
+        }
+
+        function startLevel(levelId) {
+            if (gameState.lives <= 0) gameState.lives = gameState.maxLives;
+            playSFX('click');
+            gameState.currentLevelId = levelId;
+            gameState.novaActiveForCurrentQuestion = false;
+            gameState.selectedAxis = null;
+            gameState.drawnAxes = [];
+
+            const data = getLevelById(levelId);
+            if (!data) return;
+
+            const { mission, level } = data;
+            navigateTo('game');
+
+            document.getElementById('game-mission-badge').textContent = mission.code;
+            document.getElementById('game-level-badge').textContent = `TAHAP ${level.levelNum} / 9`;
+            document.getElementById('game-title').textContent = level.name;
+            document.getElementById('game-instruction').textContent = level.instruction;
+            document.getElementById('nova-charges').textContent = gameState.novaCharges;
+            document.getElementById('nova-overlay-effect').classList.add('hidden');
+            document.getElementById('nova-status-text').textContent = '● SEDIA MEMBANTU';
+            document.getElementById('nova-hint-display').innerHTML = `Hai Ejen! Klik butang <strong class="text-cyan-300">"IMBASAN N.O.V.A."</strong> di atas jika kamu perlukan petunjuk paksi simetri!`;
+            document.getElementById('game-agent-msg').textContent = AGENTS[gameState.selectedAgent].quote;
+
+            renderLevelWorkspace(level, false);
+        }
+
+        function activateNOVA() {
+            const data = getLevelById(gameState.currentLevelId);
+            if (!data) return;
+            const { level } = data;
+
+            if (gameState.novaActiveForCurrentQuestion) {
+                playSFX('click');
+                return;
+            }
+
+            if (gameState.novaCharges <= 0) {
+                showModal('warning', 'TENAGA N.O.V.A. HABIS', 'Bateri bantuan N.O.V.A. telah habis digunakan. Selesaikan tahap ini untuk mengecas semula bateri N.O.V.A.!', [
+                    { text: 'FAHAM, N.O.V.A.!', action: 'closeModal()' }
+                ]);
+                return;
+            }
+
+            playSFX('nova');
+            gameState.novaCharges--;
+            gameState.novaActiveForCurrentQuestion = true;
+            document.getElementById('nova-charges').textContent = gameState.novaCharges;
+            document.getElementById('nova-status-text').textContent = '● MENGIMBAS BATIK...';
+            document.getElementById('nova-overlay-effect').classList.remove('hidden');
+
+            document.getElementById('nova-hint-display').innerHTML = `
+                <span class="text-amber-300 font-bold block mb-1"><i class="fa-solid fa-robot mr-1"></i> N.O.V.A. MENGANALISIS:</span>
+                ${level.novaHint}
+            `;
+
+            renderLevelWorkspace(level, true);
+        }
+
+        function renderLevelWorkspace(level, showNovaGuide = false) {
+            const workspace = document.getElementById('game-workspace');
+            const controls = document.getElementById('game-controls');
+            workspace.innerHTML = '';
+            controls.innerHTML = '';
+
+            if (level.type === 'identify') {
+                workspace.innerHTML = generateBatikSVG(level.motifType, showNovaGuide ? 'vertical' : null, false);
+                controls.innerHTML = `
+                    <button onclick="checkIdentifyAnswer(true)" class="btn-nexus-cyan px-6 py-3 rounded-2xl font-orbitron font-bold text-sm sm:text-base flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-circle-check"></i> YA, SIMETRI
+                    </button>
+                    <button onclick="checkIdentifyAnswer(false)" class="btn-nexus-primary px-6 py-3 rounded-2xl font-orbitron font-bold text-white text-sm sm:text-base flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-circle-xmark"></i> BUKAN SIMETRI
+                    </button>
+                `;
+            } else if (level.type === 'axis') {
+                const required = level.requiredAxes || 1;
+                const found = gameState.drawnAxes.length;
+                const remaining = Math.max(0, required - found);
+
+                workspace.innerHTML = `
+                    <div class="w-full max-w-md mb-3 bg-indigo-950/95 border border-cyan-400/60 rounded-2xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-2">
+                        <span class="text-xs font-orbitron text-cyan-300"><i class="fa-solid fa-pen-nib mr-1"></i> SERET LUKIS PADA BATIK</span>
+                        <span class="text-xs font-orbitron font-bold ${remaining === 0 ? 'text-emerald-400' : 'text-amber-300'}">
+                            DILUKIS: ${found}/${required} • ${remaining === 0 ? 'LENGKAP ✓' : `PERLU ${remaining} LAGI`}
+                        </span>
+                    </div>
+                    ${generateInteractiveBatikSVG(level.motifType, gameState.drawnAxes, showNovaGuide, 'level')}
+                `;
+                controls.innerHTML = `
+                    <button onclick="previewAxis('vertical')" class="px-3.5 py-2.5 rounded-2xl font-orbitron font-bold text-xs ${gameState.drawnAxes.includes('vertical') ? 'bg-amber-400 text-slate-950 border-2 border-white' : 'bg-indigo-950 text-cyan-300 border-2 border-cyan-400/50'} transition cursor-pointer">
+                        <i class="fa-solid fa-arrows-up-down mr-1"></i> MENEGAK ( | )
+                    </button>
+                    <button onclick="previewAxis('horizontal')" class="px-3.5 py-2.5 rounded-2xl font-orbitron font-bold text-xs ${gameState.drawnAxes.includes('horizontal') ? 'bg-amber-400 text-slate-950 border-2 border-white' : 'bg-indigo-950 text-cyan-300 border-2 border-cyan-400/50'} transition cursor-pointer">
+                        <i class="fa-solid fa-arrows-left-right mr-1"></i> MELINTANG ( — )
+                    </button>
+                    <button onclick="previewAxis('diagonal')" class="px-3.5 py-2.5 rounded-2xl font-orbitron font-bold text-xs ${gameState.drawnAxes.includes('diagonal') ? 'bg-amber-400 text-slate-950 border-2 border-white' : 'bg-indigo-950 text-cyan-300 border-2 border-cyan-400/50'} transition cursor-pointer">
+                        <i class="fa-solid fa-slash mr-1"></i> PEPENJURU ( / )
+                    </button>
+                    <button onclick="clearLevelAxes()" class="px-3.5 py-2.5 rounded-2xl font-orbitron font-bold text-xs bg-slate-900 text-rose-300 border border-rose-400/50 cursor-pointer">
+                        PADAM
+                    </button>
+                    <button onclick="checkAxisAnswer()" class="btn-nexus-primary px-6 py-2.5 rounded-2xl font-orbitron font-bold text-xs sm:text-sm text-white cursor-pointer">
+                        SAHKAN PAKSI ✓
+                    </button>
+                `;
+                attachBatikDrawEvents('level');
+            } else if (level.type === 'axis-count') {
+                const required = level.correctCount;
+                const found = gameState.drawnAxes.length;
+                const remaining = Math.max(0, required - found);
+                const opts = [1, 2, 3, 4, 6];
+
+                workspace.innerHTML = `
+                    <div class="w-full max-w-md mb-3 bg-indigo-950/95 border border-amber-400/60 rounded-2xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-2">
+                        <span class="text-xs font-orbitron text-cyan-300"><i class="fa-solid fa-pen-nib mr-1"></i> LUKIS SEMUA PAKSI SIMETRI</span>
+                        <span class="text-xs font-orbitron font-bold ${remaining === 0 ? 'text-emerald-400' : 'text-amber-300'}">
+                            DILUKIS: ${found}/${required} • ${remaining === 0 ? `CUKUP ${required} PAKSI ✓` : `PERLU ${remaining} PAKSI LAGI`}
+                        </span>
+                    </div>
+                    ${generateInteractiveBatikSVG(level.motifType, gameState.drawnAxes, showNovaGuide, 'level')}
+                `;
+                controls.innerHTML = `
+                    <button onclick="clearLevelAxes()" class="px-3.5 py-2.5 rounded-2xl font-orbitron font-bold text-xs bg-slate-900 text-rose-300 border border-rose-400/50 cursor-pointer">
+                        <i class="fa-solid fa-eraser mr-1"></i> PADAM
+                    </button>
+                    ${opts.map(n => `<button onclick="checkAxisCountAnswer(${n})" class="px-3.5 py-2.5 rounded-2xl font-orbitron font-bold text-xs sm:text-sm bg-indigo-950 hover:bg-cyan-500 hover:text-slate-950 text-cyan-300 border-2 border-cyan-400/60 transition cursor-pointer">${n} PAKSI</button>`).join('')}
+                `;
+                attachBatikDrawEvents('level');
+            } else if (level.type === 'reflect') {
+                const size = level.gridSize;
+                const half = size / 2;
+
+                if (!gameState.userGridState || gameState.userGridState.length !== size) {
+                    gameState.userGridState = Array.from({ length: size }, () => Array(half).fill(0));
+                }
+
+                let gridHTML = `
+                    <div class="flex flex-col items-center">
+                        <div class="flex items-center justify-between w-full max-w-xs text-[11px] font-orbitron mb-2 px-2">
+                            <span class="text-amber-300">CORAK ASAL (KIRI)</span>
+                            <span class="text-cyan-300">PANTULAN KAMU (KANAN)</span>
+                        </div>
+                        <div class="relative p-3.5 bg-indigo-950 rounded-3xl border-2 border-amber-400/70 shadow-inner">
+                            <div class="absolute top-1.5 bottom-1.5 left-1/2 -translate-x-1/2 w-1.5 bg-amber-400 rounded-full shadow-[0_0_12px_#ffbe0b] z-10 pointer-events-none"></div>
+                            <div class="grid gap-1.5" style="grid-template-columns: repeat(${size}, minmax(0, 1fr));">
+                `;
+
+                for (let r = 0; r < size; r++) {
+                    for (let c = 0; c < half; c++) {
+                        const isFilled = level.leftPattern[r][c] === 1;
+                        gridHTML += `
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center border-2 ${isFilled ? 'bg-gradient-to-br from-amber-400 to-rose-500 border-amber-200 shadow-md' : 'bg-slate-950/90 border-indigo-900'}">
+                                ${isFilled ? '<i class="fa-solid fa-fan text-white text-sm"></i>' : ''}
+                            </div>
+                        `;
+                    }
+                    for (let c = 0; c < half; c++) {
+                        const isUserFilled = gameState.userGridState[r][c] === 1;
+                        const guideLabel = showNovaGuide ? `<span class="text-[10px] text-cyan-300/75 font-orbitron">B${r+1}</span>` : '';
+                        gridHTML += `
+                            <button onclick="toggleReflectCell(${r}, ${c})" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center border-2 transition-all cursor-pointer ${isUserFilled ? 'bg-gradient-to-br from-cyan-400 to-purple-600 border-white shadow-[0_0_12px_rgba(0,245,212,0.7)] scale-95' : 'bg-slate-900/80 hover:bg-indigo-900 border-cyan-500/35'}">
+                                ${isUserFilled ? '<i class="fa-solid fa-fan text-white text-sm"></i>' : guideLabel}
+                            </button>
+                        `;
+                    }
+                }
+
+                gridHTML += `
+                            </div>
+                        </div>
+                    </div>
+                `;
+                workspace.innerHTML = gridHTML;
+
+                controls.innerHTML = `
+                    <button onclick="resetReflectGrid(${size})" class="px-4 py-2.5 rounded-2xl font-orbitron font-bold text-xs sm:text-sm bg-indigo-950 hover:bg-purple-900 text-slate-200 border-2 border-indigo-600 cursor-pointer">
+                        <i class="fa-solid fa-rotate-left mr-1"></i> SET SEMULA
+                    </button>
+                    <button onclick="checkReflectAnswer()" class="btn-nexus-primary px-6 py-3 rounded-2xl font-orbitron font-bold text-xs sm:text-sm text-white flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> SAHKAN PANTULAN BATIK
+                    </button>
+                `;
+            }
+        }
+
+        // Penjana Visual Motif Batik Malaysia + N.O.V.A. Batik Scanner
+        function generateBatikSVG(motifType, activeAxis = null, showNovaCandidates = false) {
+            let patternContent = '';
+
+            if (motifType === 'teratai') {
+                patternContent = `
+                    <circle cx="150" cy="150" r="105" fill="none" stroke="#ffbe0b" stroke-width="3.5" stroke-dasharray="10 5"/>
+                    <path d="M150 45 C185 95, 185 135, 150 150 C115 135, 115 95, 150 45 Z" fill="#ff3b6b" opacity="0.9" stroke="#ffffff" stroke-width="1.5"/>
+                    <path d="M150 255 C185 205, 185 165, 150 150 C115 165, 115 205, 150 255 Z" fill="#ff3b6b" opacity="0.9" stroke="#ffffff" stroke-width="1.5"/>
+                    <path d="M45 150 C95 115, 135 115, 150 150 C135 185, 95 185, 45 150 Z" fill="#00f5d4" opacity="0.85" stroke="#ffffff" stroke-width="1.5"/>
+                    <path d="M255 150 C205 115, 165 115, 150 150 C165 185, 205 185, 255 150 Z" fill="#00f5d4" opacity="0.85" stroke="#ffffff" stroke-width="1.5"/>
+                    <circle cx="150" cy="150" r="24" fill="#ffbe0b" stroke="#ffffff" stroke-width="2.5"/>
+                `;
+            } else if (motifType === 'rebung-asymmetric') {
+                patternContent = `
+                    <polygon points="150,40 80,240 220,240" fill="none" stroke="#ffbe0b" stroke-width="4"/>
+                    <circle cx="115" cy="170" r="19" fill="#00f5d4" stroke="#ffffff" stroke-width="1.5"/>
+                    <rect x="168" y="151" width="36" height="36" rx="6" fill="#ff3b6b" stroke="#ffffff" stroke-width="1.5"/>
+                    <path d="M150 65 L125 120 L150 120 Z" fill="#ffbe0b"/>
+                `;
+            } else if (motifType === 'wau') {
+                patternContent = `
+                    <path d="M150 50 C110 90, 60 95, 50 135 C85 145, 115 140, 150 155 C185 140, 215 145, 250 135 C240 95, 190 90, 150 50 Z" fill="#00f5d4" opacity="0.85" stroke="#ffffff" stroke-width="2.5"/>
+                    <path d="M150 155 C100 175, 70 215, 90 245 C120 230, 135 215, 150 215 C165 215, 180 230, 210 245 C230 215, 200 175, 150 155 Z" fill="#ffbe0b" opacity="0.95" stroke="#ffffff" stroke-width="2.5"/>
+                    <circle cx="150" cy="145" r="15" fill="#ff3b6b"/>
+                `;
+            } else if (motifType === 'vertical-batik') {
+                patternContent = `
+                    <path d="M150 45 L75 135 L225 135 Z" fill="#ffbe0b" opacity="0.9" stroke="#ffffff" stroke-width="1.5"/>
+                    <rect x="95" y="150" width="110" height="85" rx="18" fill="#00f5d4" opacity="0.85" stroke="#ffffff" stroke-width="1.5"/>
+                    <circle cx="118" cy="192" r="14" fill="#ff3b6b"/>
+                    <circle cx="182" cy="192" r="14" fill="#ff3b6b"/>
+                `;
+            } else if (motifType === 'horizontal-batik') {
+                patternContent = `
+                    <path d="M55 150 L145 75 L145 225 Z" fill="#00f5d4" opacity="0.85" stroke="#ffffff" stroke-width="1.5"/>
+                    <rect x="160" y="95" width="85" height="110" rx="18" fill="#ffbe0b" opacity="0.9" stroke="#ffffff" stroke-width="1.5"/>
+                    <circle cx="202" cy="122" r="14" fill="#ff3b6b"/>
+                    <circle cx="202" cy="178" r="14" fill="#ff3b6b"/>
+                `;
+            } else if (motifType === 'star-batik') {
+                patternContent = `
+                    <rect x="65" y="65" width="170" height="170" rx="22" fill="rgba(139, 92, 246, 0.25)" stroke="#ffbe0b" stroke-width="4"/>
+                    <polygon points="150,45 178,122 255,150 178,178 150,255 122,178 45,150 122,122" fill="#00f5d4" opacity="0.85" stroke="#ffffff" stroke-width="2.5"/>
+                    <circle cx="150" cy="150" r="24" fill="#ff3b6b" stroke="#ffbe0b" stroke-width="3"/>
+                `;
+            }
+
+            let axisLine = '';
+            if (activeAxis === 'vertical') {
+                axisLine = `<line x1="150" y1="15" x2="150" y2="285" stroke="#ffbe0b" stroke-width="5" stroke-dasharray="10 5"/><circle cx="150" cy="150" r="6" fill="#ff3b6b"/>`;
+            } else if (activeAxis === 'horizontal') {
+                axisLine = `<line x1="15" y1="150" x2="285" y2="150" stroke="#ffbe0b" stroke-width="5" stroke-dasharray="10 5"/><circle cx="150" cy="150" r="6" fill="#ff3b6b"/>`;
+            } else if (activeAxis === 'diagonal') {
+                axisLine = `<line x1="30" y1="270" x2="270" y2="30" stroke="#ffbe0b" stroke-width="5" stroke-dasharray="10 5"/><circle cx="150" cy="150" r="6" fill="#ff3b6b"/>`;
+            }
+
+            let candidateGuides = '';
+            if (showNovaCandidates) {
+                candidateGuides = `
+                    <line x1="150" y1="15" x2="150" y2="285" stroke="rgba(0, 245, 212, 0.85)" stroke-width="3" stroke-dasharray="6 4"/>
+                    <line x1="15" y1="150" x2="285" y2="150" stroke="rgba(255, 190, 11, 0.85)" stroke-width="3" stroke-dasharray="6 4"/>
+                    <text x="158" y="35" fill="#00f5d4" font-size="11" font-weight="bold">Paksi Menegak</text>
+                    <text x="25" y="142" fill="#ffbe0b" font-size="11" font-weight="bold">Paksi Melintang</text>
+                `;
+            }
+
+            return `
+                <div class="relative flex flex-col items-center">
+                    <svg viewBox="0 0 300 300" class="w-64 h-64 sm:w-80 sm:h-80 bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-950 rounded-3xl border-4 border-cyan-400 shadow-[0_0_30px_rgba(0,245,212,0.3)]">
+                        <defs>
+                            <pattern id="batikGalleryPattern" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+                                <circle cx="4" cy="4" r="2" fill="rgba(255, 190, 11, 0.22)"/>
+                                <circle cx="16" cy="16" r="1.5" fill="rgba(0, 245, 212, 0.18)"/>
+                            </pattern>
+                        </defs>
+                        <rect width="300" height="300" fill="url(#batikGalleryPattern)"/>
+                        ${candidateGuides}
+                        ${patternContent}
+                        ${axisLine}
+                    </svg>
+                    <div class="mt-2.5 flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
+                        <span class="text-xs font-orbitron text-cyan-300 font-bold">N.O.V.A. BATIK SCANNER ACTIVE</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Penilaian Jawapan & Sistem Skor/Nyawa
+        function checkIdentifyAnswer(userSaysSymmetric) {
+            const { level } = getLevelById(gameState.currentLevelId);
+            if (userSaysSymmetric === level.isSymmetric) {
+                handleCorrectAnswer();
+            } else {
+                handleWrongAnswer('N.O.V.A. mengesan ketidakseimbangan! Cuba lipat corak batik ini secara bayangan di garisan tengah.');
+            }
+        }
+
+        function previewAxis(axisType) {
+            playSFX('click');
+            gameState.selectedAxis = axisType;
+            gameState.drawnAxes = [axisType];
+            const { level } = getLevelById(gameState.currentLevelId);
+            renderLevelWorkspace(level, gameState.novaActiveForCurrentQuestion);
+        }
+
+        function clearLevelAxes() {
+            playSFX('click');
+            gameState.selectedAxis = null;
+            gameState.drawnAxes = [];
+            const { level } = getLevelById(gameState.currentLevelId);
+            renderLevelWorkspace(level, gameState.novaActiveForCurrentQuestion);
+        }
+
+        function checkAxisAnswer() {
+            const { level } = getLevelById(gameState.currentLevelId);
+            const activeAxis = gameState.drawnAxes[0] || gameState.selectedAxis;
+            if (!activeAxis) {
+                showModal('warning', 'LUKIS ATAU PILIH PAKSI DAHULU', 'Sila seret garis lurus merentasi gambar batik atau tekan butang paksi untuk melukis 1 garisan lipatan!', [
+                    { text: 'BAIK, N.O.V.A.!', action: 'closeModal()' }
+                ]);
+                return;
+            }
+            if (activeAxis === level.correctAxis && gameState.drawnAxes.length <= 1) {
+                handleCorrectAnswer();
+            } else {
+                handleWrongAnswer('Garisan paksi yang dilukis belum tepat atau melebihi 1 garisan diperlukan. Cuba padam dan lukis semula!');
+            }
+        }
+
+        function checkAxisCountAnswer(selectedCount) {
+            const { level } = getLevelById(gameState.currentLevelId);
+            if (selectedCount === level.correctCount) {
+                handleCorrectAnswer();
+            } else {
+                const diff = Math.abs(level.correctCount - selectedCount);
+                const msg = selectedCount < level.correctCount
+                    ? `Belum cukup! Kamu baru menanda ${selectedCount} paksi, masih kurang ${diff} paksi simetri lagi untuk bentuk/corak ini.`
+                    : `Terlebih! Bentuk/corak ini hanya mempunyai ${level.correctCount} paksi simetri sahaja.`;
+                handleWrongAnswer(msg);
+            }
+        }
+
+        // Fungsi Lukisan Paksi Simetri Interaktif (Seret & Lukis pada SVG)
+        let drawStartPt = null;
+
+        function getValidAxesForMotif(motifType) {
+            if (motifType === 'teratai' || motifType === 'vertical-batik') return ['vertical'];
+            if (motifType === 'horizontal-batik') return ['horizontal'];
+            if (motifType === 'rect-basic') return ['vertical', 'horizontal'];
+            if (motifType === 'tri-basic') return ['vertical', 'tri-left', 'tri-right'];
+            return ['vertical', 'horizontal', 'diagonal', 'diagonal2'];
+        }
+
+        function generateInteractiveBatikSVG(motifType, axesArray = [], showNovaCandidates = false, mode = 'level') {
+            const svgId = mode === 'sandbox' ? 'sandbox-batik-svg' : 'level-batik-svg';
+            const previewLineId = mode === 'sandbox' ? 'sandbox-preview-line' : 'level-preview-line';
+            let patternContent = '';
+
+            if (motifType === 'square-basic') {
+                patternContent = `
+                    <rect x="65" y="65" width="170" height="170" rx="8" fill="rgba(0, 245, 212, 0.22)" stroke="#00f5d4" stroke-width="4"/>
+                    <circle cx="150" cy="150" r="10" fill="#ffbe0b"/>
+                    <text x="150" y="275" text-anchor="middle" fill="#94a3b8" font-size="11" font-weight="bold">SEGI EMPAT SAMA</text>
+                `;
+            } else if (motifType === 'rect-basic') {
+                patternContent = `
+                    <rect x="45" y="85" width="210" height="130" rx="8" fill="rgba(255, 59, 107, 0.22)" stroke="#ff3b6b" stroke-width="4"/>
+                    <circle cx="150" cy="150" r="10" fill="#ffbe0b"/>
+                    <text x="150" y="275" text-anchor="middle" fill="#94a3b8" font-size="11" font-weight="bold">SEGI EMPAT TEPAT</text>
+                `;
+            } else if (motifType === 'tri-basic') {
+                patternContent = `
+                    <polygon points="150,48 52,218 248,218" fill="rgba(255, 190, 11, 0.22)" stroke="#ffbe0b" stroke-width="4"/>
+                    <circle cx="150" cy="161" r="8" fill="#00f5d4"/>
+                    <text x="150" y="275" text-anchor="middle" fill="#94a3b8" font-size="11" font-weight="bold">SEGI TIGA SAMA SISI</text>
+                `;
+            } else if (motifType === 'teratai' || motifType === 'vertical-batik') {
+                patternContent = `
+                    <circle cx="150" cy="150" r="105" fill="none" stroke="#ffbe0b" stroke-width="3.5" stroke-dasharray="10 5"/>
+                    <path d="M150 45 C185 95, 185 135, 150 150 C115 135, 115 95, 150 45 Z" fill="#ff3b6b" opacity="0.9" stroke="#ffffff" stroke-width="1.5"/>
+                    <path d="M150 95 C105 70, 65 95, 80 130 C105 145, 130 120, 150 95 Z" fill="#00f5d4" opacity="0.85" stroke="#ffffff" stroke-width="1.5"/>
+                    <path d="M150 95 C195 70, 235 95, 220 130 C195 145, 170 120, 150 95 Z" fill="#00f5d4" opacity="0.85" stroke="#ffffff" stroke-width="1.5"/>
+                    <path d="M150 150 C110 175, 95 225, 150 245 C205 225, 190 175, 150 150 Z" fill="#ffbe0b" opacity="0.9" stroke="#ffffff" stroke-width="1.5"/>
+                    <circle cx="150" cy="145" r="18" fill="#ffffff" stroke="#ff3b6b" stroke-width="3"/>
+                `;
+            } else if (motifType === 'horizontal-batik') {
+                patternContent = `
+                    <path d="M55 150 L145 75 L145 225 Z" fill="#00f5d4" opacity="0.85" stroke="#ffffff" stroke-width="1.5"/>
+                    <rect x="160" y="95" width="85" height="110" rx="18" fill="#ffbe0b" opacity="0.9" stroke="#ffffff" stroke-width="1.5"/>
+                    <circle cx="202" cy="122" r="14" fill="#ff3b6b"/>
+                    <circle cx="202" cy="178" r="14" fill="#ff3b6b"/>
+                `;
+            } else if (motifType === 'star-batik') {
+                patternContent = `
+                    <rect x="65" y="65" width="170" height="170" rx="22" fill="rgba(139, 92, 246, 0.25)" stroke="#ffbe0b" stroke-width="4"/>
+                    <polygon points="150,45 178,122 255,150 178,178 150,255 122,178 45,150 122,122" fill="#00f5d4" opacity="0.85" stroke="#ffffff" stroke-width="2.5"/>
+                    <circle cx="150" cy="150" r="24" fill="#ff3b6b" stroke="#ffbe0b" stroke-width="3"/>
+                `;
+            }
+
+            const axisCoords = {
+                'vertical': { x1: 150, y1: 15, x2: 150, y2: 285, color: '#ffbe0b' },
+                'horizontal': { x1: 15, y1: 150, x2: 285, y2: 150, color: '#00f5d4' },
+                'diagonal': { x1: 30, y1: 270, x2: 270, y2: 30, color: '#ff3b6b' },
+                'diagonal2': { x1: 30, y1: 30, x2: 270, y2: 270, color: '#c084fc' },
+                'tri-left': { x1: 38, y1: 226, x2: 222, y2: 120, color: '#00f5d4' },
+                'tri-right': { x1: 262, y1: 226, x2: 78, y2: 120, color: '#ff3b6b' }
+            };
+
+            let drawnLinesSVG = axesArray.map(ax => {
+                const c = axisCoords[ax];
+                if (!c) return '';
+                return `<line x1="${c.x1}" y1="${c.y1}" x2="${c.x2}" y2="${c.y2}" stroke="${c.color}" stroke-width="5" stroke-dasharray="10 5"/>`;
+            }).join('');
+
+            let candidateGuides = '';
+            if (showNovaCandidates) {
+                const valid = getValidAxesForMotif(motifType);
+                candidateGuides = valid.map(ax => {
+                    const c = axisCoords[ax];
+                    if (!c) return '';
+                    return `<line x1="${c.x1}" y1="${c.y1}" x2="${c.x2}" y2="${c.y2}" stroke="${c.color}" opacity="0.7" stroke-width="3" stroke-dasharray="6 4"/>`;
+                }).join('');
+            }
+
+            return `
+                <div class="relative flex flex-col items-center">
+                    <svg id="${svgId}" viewBox="0 0 300 300" class="w-64 h-64 sm:w-72 sm:h-72 bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-950 rounded-3xl border-4 border-cyan-400 shadow-[0_0_25px_rgba(0,245,212,0.3)] touch-none cursor-crosshair">
+                        ${candidateGuides}
+                        ${patternContent}
+                        ${drawnLinesSVG}
+                        <line id="${previewLineId}" x1="0" y1="0" x2="0" y2="0" stroke="#ffffff" stroke-width="3.5" stroke-dasharray="6 4" class="hidden"/>
+                    </svg>
+                    <p class="mt-2 text-[11px] font-orbitron text-slate-300">Tip: Seret lurus merentasi bentuk/batik untuk melukis paksi!</p>
+                </div>
+            `;
+        }
+
+        function getSVGPoint(svgEl, clientX, clientY) {
+            const rect = svgEl.getBoundingClientRect();
+            return {
+                x: ((clientX - rect.left) / rect.width) * 300,
+                y: ((clientY - rect.top) / rect.height) * 300
+            };
+        }
+
+        function attachBatikDrawEvents(mode) {
+            const svgEl = document.getElementById(mode === 'sandbox' ? 'sandbox-batik-svg' : 'level-batik-svg');
+            const previewEl = document.getElementById(mode === 'sandbox' ? 'sandbox-preview-line' : 'level-preview-line');
+            if (!svgEl || !previewEl) return;
+
+            const startDraw = (cx, cy) => {
+                drawStartPt = getSVGPoint(svgEl, cx, cy);
+                previewEl.setAttribute('x1', drawStartPt.x);
+                previewEl.setAttribute('y1', drawStartPt.y);
+                previewEl.setAttribute('x2', drawStartPt.x);
+                previewEl.setAttribute('y2', drawStartPt.y);
+                previewEl.classList.remove('hidden');
+            };
+
+            const moveDraw = (cx, cy) => {
+                if (!drawStartPt) return;
+                const pt = getSVGPoint(svgEl, cx, cy);
+                previewEl.setAttribute('x2', pt.x);
+                previewEl.setAttribute('y2', pt.y);
+            };
+
+            const endDraw = (cx, cy) => {
+                if (!drawStartPt) return;
+                const endPt = getSVGPoint(svgEl, cx, cy);
+                previewEl.classList.add('hidden');
+                const dx = endPt.x - drawStartPt.x;
+                const dy = endPt.y - drawStartPt.y;
+                const dist = Math.hypot(dx, dy);
+                drawStartPt = null;
+
+                if (dist < 45) return; // Garisan terlalu pendek
+
+                const currentMotif = mode === 'sandbox'
+                    ? gameState.sandboxMotif
+                    : (getLevelById(gameState.currentLevelId)?.level?.motifType || '');
+
+                const angle = Math.abs(Math.atan2(dy, dx) * (180 / Math.PI));
+                let detectedAxis = 'diagonal';
+                if (angle > 67.5 && angle < 112.5) {
+                    detectedAxis = 'vertical';
+                } else if (angle <= 22.5 || angle >= 157.5) {
+                    detectedAxis = 'horizontal';
+                } else if (currentMotif === 'tri-basic') {
+                    detectedAxis = (dx * dy < 0) ? 'tri-left' : 'tri-right';
+                } else {
+                    detectedAxis = (dx * dy < 0) ? 'diagonal' : 'diagonal2';
+                }
+
+                playSFX('nova');
+                if (mode === 'sandbox') {
+                    registerSandboxAxis(detectedAxis);
+                } else {
+                    registerLevelDrawnAxis(detectedAxis);
+                }
+            };
+
+            svgEl.onmousedown = e => startDraw(e.clientX, e.clientY);
+            svgEl.onmousemove = e => moveDraw(e.clientX, e.clientY);
+            svgEl.onmouseup = e => endDraw(e.clientX, e.clientY);
+
+            svgEl.ontouchstart = e => { e.preventDefault(); const t = e.touches[0]; startDraw(t.clientX, t.clientY); };
+            svgEl.ontouchmove = e => { e.preventDefault(); const t = e.touches[0]; moveDraw(t.clientX, t.clientY); };
+            svgEl.ontouchend = e => { e.preventDefault(); const t = e.changedTouches[0]; endDraw(t.clientX, t.clientY); };
+        }
+
+        function registerLevelDrawnAxis(detectedAxis) {
+            const { level } = getLevelById(gameState.currentLevelId);
+            if (!level) return;
+
+            if (level.type === 'axis') {
+                gameState.selectedAxis = detectedAxis;
+                gameState.drawnAxes = [detectedAxis];
+                renderLevelWorkspace(level, gameState.novaActiveForCurrentQuestion);
+            } else if (level.type === 'axis-count') {
+                const validAxes = getValidAxesForMotif(level.motifType);
+                if (validAxes.includes(detectedAxis) && !gameState.drawnAxes.includes(detectedAxis)) {
+                    gameState.drawnAxes.push(detectedAxis);
+                } else if (!validAxes.includes(detectedAxis)) {
+                    handleWrongAnswer('Garisan serong itu bukan paksi simetri bagi bentuk ini! Cuba seret menegak atau melintang.');
+                    return;
+                }
+                renderLevelWorkspace(level, gameState.novaActiveForCurrentQuestion);
+                if (gameState.drawnAxes.length === level.correctCount) {
+                    setTimeout(() => checkAxisCountAnswer(level.correctCount), 450);
+                }
+            }
+        }
+
+        // Makmal Lukis Paksi Simetri di Pusat Ilmu
+        function setSandboxMotif(motif) {
+            playSFX('click');
+            gameState.sandboxMotif = motif;
+            gameState.sandboxDrawnAxes = [];
+            const btnMap = {
+                'square-basic': 'sb-btn-square',
+                'rect-basic': 'sb-btn-rect',
+                'tri-basic': 'sb-btn-tri',
+                'teratai': 'sb-btn-teratai',
+                'star-batik': 'sb-btn-star'
+            };
+            Object.entries(btnMap).forEach(([key, btnId]) => {
+                const el = document.getElementById(btnId);
+                if (el) {
+                    el.className = key === motif
+                        ? 'px-3 py-1.5 rounded-xl font-orbitron text-xs font-bold bg-amber-400 text-slate-950 cursor-pointer'
+                        : 'px-3 py-1.5 rounded-xl font-orbitron text-xs font-bold bg-indigo-950 text-cyan-300 border border-cyan-400/40 cursor-pointer';
+                }
+            });
+            renderSandboxWorkspace();
+        }
+
+        function clearSandboxAxes() {
+            playSFX('click');
+            gameState.sandboxDrawnAxes = [];
+            renderSandboxWorkspace();
+        }
+
+        function registerSandboxAxis(axis) {
+            const validForMotif = getValidAxesForMotif(gameState.sandboxMotif);
+
+            const statusBox = document.getElementById('sandbox-status-box');
+            if (!validForMotif.includes(axis)) {
+                if (statusBox) {
+                    statusBox.innerHTML = `<span class="text-rose-300 font-bold">✗ Garisan itu bukan paksi simetri bagi bentuk ini!</span> Cuba lukis garisan yang membahagikan dua bahagian bertindih tepat.`;
+                }
+                return;
+            }
+
+            if (!gameState.sandboxDrawnAxes.includes(axis)) {
+                gameState.sandboxDrawnAxes.push(axis);
+            }
+            renderSandboxWorkspace();
+        }
+
+        function renderSandboxWorkspace() {
+            const wrapper = document.getElementById('sandbox-canvas-wrapper');
+            const statusBox = document.getElementById('sandbox-status-box');
+            if (!wrapper || !statusBox) return;
+
+            const required = getValidAxesForMotif(gameState.sandboxMotif).length;
+            const found = gameState.sandboxDrawnAxes.length;
+            const remaining = Math.max(0, required - found);
+
+            wrapper.innerHTML = generateInteractiveBatikSVG(gameState.sandboxMotif, gameState.sandboxDrawnAxes, false, 'sandbox');
+            attachBatikDrawEvents('sandbox');
+
+            if (remaining === 0) {
+                statusBox.innerHTML = `<span class="text-emerald-300 font-bold">✓ TAHNIAH! Lengkap ${found}/${required} paksi simetri ditemui!</span> Bentuk ini seimbang sepenuhnya.`;
+            } else {
+                statusBox.innerHTML = `Paksi simetri betul dilukis: <strong class="text-cyan-300">${found} / ${required}</strong> • Baki diperlukan: <strong class="text-amber-300">${remaining} paksi lagi</strong>.`;
+            }
+        }
+
+        function checkAxisCountAnswer(selectedCount) {
+            const { level } = getLevelById(gameState.currentLevelId);
+            if (selectedCount === level.correctCount) {
+                handleCorrectAnswer();
+            } else {
+                handleWrongAnswer('Belum tepat! Cuba klik "IMBASAN N.O.V.A." untuk melihat semua garisan lipatan pada motif Batik Bintang ini.');
+            }
+        }
+
+        function toggleReflectCell(row, col) {
+            playSFX('click');
+            gameState.userGridState[row][col] = gameState.userGridState[row][col] === 1 ? 0 : 1;
+            const { level } = getLevelById(gameState.currentLevelId);
+            renderLevelWorkspace(level, gameState.novaActiveForCurrentQuestion);
+        }
+
+        function resetReflectGrid(size) {
+            playSFX('click');
+            const half = size / 2;
+            gameState.userGridState = Array.from({ length: size }, () => Array(half).fill(0));
+            const { level } = getLevelById(gameState.currentLevelId);
+            renderLevelWorkspace(level, gameState.novaActiveForCurrentQuestion);
+        }
+
+        function checkReflectAnswer() {
+            const { level } = getLevelById(gameState.currentLevelId);
+            const size = level.gridSize;
+            const half = size / 2;
+            let isMatch = true;
+
+            for (let r = 0; r < size; r++) {
+                for (let c = 0; c < half; c++) {
+                    const expected = level.leftPattern[r][half - 1 - c];
+                    if (gameState.userGridState[r][c] !== expected) {
+                        isMatch = false;
+                        break;
+                    }
+                }
+            }
+
+            if (isMatch) {
+                handleCorrectAnswer();
+            } else {
+                handleWrongAnswer('Pantulan corak belum seimbang! Pastikan jarak setiap petak dari garisan kuning di tengah adalah sama.');
+            }
+        }
+
+        function handleCorrectAnswer() {
+            playSFX('success');
+            const agent = AGENTS[gameState.selectedAgent];
+            const prevRank = calculateCurrentRank();
+            const levelId = gameState.currentLevelId;
+
+            gameState.totalAnswered++;
+            gameState.correctCount++;
+
+            if (!gameState.completedLevels.includes(levelId)) {
+                gameState.completedLevels.push(levelId);
+                gameState.score += 100;
+                if (gameState.novaCharges < 3) gameState.novaCharges++;
+            } else {
+                gameState.score += 25;
+            }
+
+            gameState.userGridState = [];
+            const newRank = calculateCurrentRank();
+            const rankedUp = newRank.index > prevRank.index;
+            updateHUD();
+
+            const currentData = getLevelById(levelId);
+            const missionJustFinished = currentData && isMissionComplete(currentData.mission.id);
+
+            let extraBanner = '';
+            if (rankedUp) {
+                extraBanner += `
+                    <div class="rank-up-anim my-3 p-3 rounded-2xl bg-gradient-to-r from-amber-500/25 via-rose-500/25 to-cyan-500/25 border-2 border-amber-400">
+                        <p class="font-orbitron text-xs font-black text-amber-300"><i class="fa-solid fa-crown mr-1"></i> TAHNIAH! PANGKAT BAHARU DIBUKA!</p>
+                        <p class="font-orbitron text-base font-black text-white mt-0.5">${newRank.title}</p>
+                    </div>
+                `;
+            }
+
+            if (missionJustFinished) {
+                extraBanner += `
+                    <div class="my-2 p-2.5 rounded-xl bg-emerald-950/90 border border-emerald-400/60 text-xs text-emerald-200">
+                        <strong>${currentData.mission.code} SELESAI!</strong> Rekod pencapaian misi telah dikemas kini dalam Laporan Ejen.
+                    </div>
+                `;
+            }
+
+            if (levelId < 9) {
+                showModal('success', 'MISI TAHAP BERJAYA!', `
+                    <p class="text-sm font-bold text-amber-300">${agent.encouragement}</p>
+                    <p class="text-xs text-slate-300 mt-1">+100 Bintang Markas Nexus ditambah!</p>
+                    ${extraBanner}
+                `, [
+                    { text: 'TAHAP SETERUSNYA ▶', action: `closeModal(); startLevel(${levelId + 1});` },
+                    { text: 'PETA MISI', action: `closeModal(); navigateTo('missions');`, secondary: true }
+                ]);
+            } else {
+                showModal('success', 'TAHNIAH! SEMUA 9 TAHAP SELESAI!', `
+                    <p class="text-sm font-bold text-amber-300">Anda telah berjaya memulihkan kesemua Arkib Batik Malaysia!</p>
+                    ${extraBanner}
+                `, [
+                    { text: 'LIHAT LAPORAN & SIJIL', action: `closeModal(); navigateTo('report');` },
+                    { text: 'KEMBALI KE MARKAS', action: `closeModal(); navigateTo('home');`, secondary: true }
+                ]);
+            }
+        }
+
+        function handleWrongAnswer(reasonText) {
+            playSFX('error');
+            gameState.totalAnswered++;
+            gameState.wrongCount++;
+            const currentData = getLevelById(gameState.currentLevelId);
+            if (currentData) {
+                gameState.wrongByMission[currentData.mission.id] = (gameState.wrongByMission[currentData.mission.id] || 0) + 1;
+            }
+            gameState.lastWrongReason = reasonText;
+
+            gameState.lives = Math.max(0, gameState.lives - 1);
+            updateHUD();
+
+            if (gameState.lives <= 0) {
+                showModal('error', 'TENAGA EJEN HABIS!', `
+                    <p class="text-sm font-bold text-rose-400">Tenaga hati Nexus anda telah habis diceroboh.</p>
+                    <p class="text-xs text-slate-300 mt-1">Jangan risau, sila rujuk <strong>Pusat Ilmu</strong> atau tanya <strong>N.O.V.A.</strong> sebelum mencuba semula!</p>
+                `, [
+                    { text: 'CUBA SEMULA', action: `closeModal(); gameState.lives = gameState.maxLives; updateHUD(); startLevel(${gameState.currentLevelId});` },
+                    { text: 'PENGKALAN MARKAS', action: `closeModal(); gameState.lives = gameState.maxLives; updateHUD(); navigateTo('home');`, secondary: true }
+                ]);
+            } else {
+                showModal('error', 'IMBASAN BELUM TEPAT', `${reasonText}<br><br>Baki Tenaga: <strong class="text-rose-400">${gameState.lives} / 3</strong>. Klik <strong>"IMBASAN N.O.V.A."</strong> atau tanya N.O.V.A. untuk petunjuk!`, [
+                    { text: 'CUBA LAGI', action: 'closeModal()' }
+                ]);
+            }
+        }
+
+        function showModal(type, title, messageHTML, buttons) {
+            const modal = document.getElementById('feedback-modal');
+            const iconBox = document.getElementById('modal-icon-box');
+            const titleEl = document.getElementById('modal-title');
+            const msgEl = document.getElementById('modal-message');
+            const actionsEl = document.getElementById('modal-actions');
+
+            if (type === 'success') {
+                iconBox.className = 'w-20 h-20 mx-auto rounded-3xl bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-3xl text-emerald-300';
+                iconBox.innerHTML = '<i class="fa-solid fa-trophy"></i>';
+            } else if (type === 'error') {
+                iconBox.className = 'w-20 h-20 mx-auto rounded-3xl bg-rose-500/20 border-2 border-rose-400 flex items-center justify-center text-3xl text-rose-400';
+                iconBox.innerHTML = '<i class="fa-solid fa-heart-crack"></i>';
+            } else {
+                iconBox.className = 'w-20 h-20 mx-auto rounded-3xl bg-cyan-500/20 border-2 border-cyan-400 flex items-center justify-center p-1';
+                iconBox.innerHTML = getNOVASVG();
+            }
+
+            titleEl.textContent = title;
+            msgEl.innerHTML = messageHTML;
+            actionsEl.innerHTML = '';
+
+            buttons.forEach(btn => {
+                const btnClass = btn.secondary
+                    ? 'px-5 py-2.5 rounded-2xl font-orbitron font-bold text-xs sm:text-sm bg-indigo-950 hover:bg-purple-900 text-slate-200 border-2 border-indigo-600 cursor-pointer'
+                    : 'btn-nexus-primary px-5 py-2.5 rounded-2xl font-orbitron font-bold text-xs sm:text-sm text-white cursor-pointer';
+                actionsEl.innerHTML += `<button onclick="${btn.action}" class="${btnClass}">${btn.text}</button>`;
+            });
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('feedback-modal').classList.add('hidden');
+        }
+
+        window.onload = function() {
+            document.getElementById('intro-arif-avatar').innerHTML = getChibiSVG('arif');
+            document.getElementById('act2-arif').innerHTML = getChibiSVG('arif');
+            document.getElementById('act2-aira').innerHTML = getChibiSVG('aira');
+            document.getElementById('act2-baraq').innerHTML = getChibiSVG('baraq');
+            document.getElementById('act3-nova-avatar').innerHTML = getNOVASVG();
+
+            document.getElementById('home-hero-character').innerHTML = getChibiSVG('arif');
+            document.getElementById('home-nova-mini').innerHTML = getNOVASVG();
+            document.getElementById('nova-panel-avatar').innerHTML = getNOVASVG();
+            document.getElementById('nova-floating-avatar').innerHTML = getNOVASVG();
+            document.getElementById('nova-chat-header-icon').innerHTML = getNOVASVG();
+
+            document.getElementById('avatar-card-arif').innerHTML = getChibiSVG('arif');
+            document.getElementById('avatar-card-aira').innerHTML = getChibiSVG('aira');
+            document.getElementById('avatar-card-baraq').innerHTML = getChibiSVG('baraq');
+
+            updateHUD();
+        };
+    </script>
+</body>
+</html>
